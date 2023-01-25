@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db }from '../utils/firebase'
-import {ref, set} from 'firebase/database'
+import {ref, set, update, child} from 'firebase/database'
 
 const Signup = () => {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
@@ -19,17 +19,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const [confirmPassword, setConfirmPassword] = useState("");
+  // console.log(db, "DB");
+  console.log(ref(db), "REF");
 
   const handleClick = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user, "SIGN UP USER")
-      set(ref(db,"users-db"), {
+      set(child(ref(db), "users-db"), {
+        "user-id": user.uid,
         "username": username,
         "email": email
       })
-
+      setUsername("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
     }).catch(err => {
       const errorCode = err.code;
       const errorMessage = err.message;
