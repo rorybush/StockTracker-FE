@@ -3,13 +3,23 @@ import {
   Avatar,
   Button,
   Grid,
+  IconButton,
   Paper,
   TextField,
   Typography,
+  InputAdornment,
+
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db }from '../utils/firebase'
-import {ref, set, update, child} from 'firebase/database'
+import { auth, db } from "../utils/firebase";
+import { ref, set, child } from "firebase/database";
+import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
+
+// Password validation regx
+const isNumberRegx = /\d/;
+const specialCharacterRegx = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
 const Signup = () => {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
@@ -17,34 +27,64 @@ const Signup = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // console.log(db, "DB");
-  console.log(ref(db), "REF");
 
-  const handleClick = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user, "SIGN UP USER")
-      set(child(ref(db), "users-db"), {
-        "user-id": user.uid,
-        "username": username,
-        "email": email
-      })
-      setUsername("")
-      setEmail("")
-      setPassword("")
-      setConfirmPassword("")
-    }).catch(err => {
-      const errorCode = err.code;
-      const errorMessage = err.message;
-    })
+  // Password Validation
+  const [passwordValidity, setPasswordValidity] = useState({
+    minChar: null,
+    number: null,
+    specialChar: null,
+  });
+  const [passwordFocused, setPasswordFocused] = useState(false);
+
+  // Password Validation Function
+  const onChangePassword = (password) => {
+    setPassword(password);
+
+    setPasswordValidity({
+      minChar: password.length >= 8 ? true : false,
+      number: isNumberRegx.test(password) ? true : false,
+      specialChar: specialCharacterRegx.test(password) ? true : false,
+    });
+  };
+
+  // Password Visibility
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+  const toggleConfirmPassword = () => {
+    setConfirmPasswordShown(!confirmPasswordShown)
   }
 
+  // Form sumbit
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user, "SIGN UP USER");
+        set(child(ref(db), "users-db"), {
+          "user-id": user.uid,
+          username: username,
+          email: email,
+        });
+      })
+      .catch((err) => {
+        // const errorCode = err.code;
+        // const errorMessage = err.message;
+        alert('Username/Email already exists!')
+      });
+
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
 
   return (
     <Grid>
@@ -59,44 +99,103 @@ const Signup = () => {
             <TextField
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              color={username === "" ? "error" : "success"}
               sx={textStyle}
               fullWidth
               label="Username"
               placeholder="Enter a username"
+              required
             />
             <TextField
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              color={email === "" ? "error" : "success"}
               sx={textStyle}
               fullWidth
+              type="email"
               label="Email"
               placeholder="Enter an email"
+              required
             />
             <TextField
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => onChangePassword(e.target.value)}
+              color={
+                passwordValidity.minChar === true &&
+                passwordValidity.number === true &&
+                passwordValidity.specialChar === true
+                  ? "success"
+                  : "error"
+              }
+              onFocus={() => setPasswordFocused(true)}
               sx={textStyle}
               fullWidth
+              type={passwordShown ? "text" : "password"}
               label="Password"
               placeholder="Enter a password"
+              required
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton aria-label='toggle password' edge='end' onClick={togglePassword}>
+                    {passwordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
+            {passwordFocused && (
+              <PasswordStrengthIndicator validity={passwordValidity} />
+            )}
             <TextField
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               sx={textStyle}
               fullWidth
+              type={confirmPasswordShown ? "text" : "password"}
               label="Confirm Password"
               placeholder="Enter same password"
+              required
+              color={password === confirmPassword ? "success" : "error"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton aria-label='toggle password' edge='end' onClick={toggleConfirmPassword}>
+                    {confirmPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-            <Button
-              onClick={handleClick}
-              sx={textStyle}
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              Signup
-            </Button>
+              {/* <IconButton onClick={togglePassword} edge="end">
+                {passwordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </IconButton>
+            </TextField> */}
+            {password === confirmPassword &&
+            passwordValidity.minChar === true &&
+            passwordValidity.number === true &&
+            passwordValidity.specialChar === true ? (
+              <Button
+                fullWidth
+                sx={textStyle}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Signup
+              </Button>
+            ) : (
+              <Button
+                disabled
+                sx={textStyle}
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Signup
+              </Button>
+            )}
           </form>
         </Grid>
       </Paper>
