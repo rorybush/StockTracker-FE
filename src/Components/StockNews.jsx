@@ -30,7 +30,6 @@ const StockNews = () => {
     maxWidth="lg"
     sx={{
       padding: "35px 20px",
-      marginTop: 35,
       marginLeft: "50vw"
     }}
   >

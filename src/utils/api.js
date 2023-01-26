@@ -29,3 +29,10 @@ export const getStockNews = () => {
     return response.data
   })
 }
+
+export const getSingleStock = (stock) => {
+  return fromApi.get(`/api/stockdata/${stock}`).then((response) => {
+    console.log(response);
+    return response.data
+  })
+}
