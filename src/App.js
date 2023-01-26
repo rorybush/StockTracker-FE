@@ -5,16 +5,18 @@ import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
+// import Logout from './components/Logout'
 
 function App() {
   return (
     <div className="App">
       <CssBaseline/>
       <NavBar/>
-      <Home/>
       <Routes>
+        <Route path='/' element={<Home/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/signup' element={<Signup/>}></Route>
+        {/* <Route path='/logout' element={<Logout/>}></Route> */}
       </Routes>
     </div>
   );

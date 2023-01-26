@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {Link, useNavigate} from 'react-router-dom'
+import Home from './Home'
 import {
   Avatar,
   Button,
@@ -60,18 +62,21 @@ const Signup = () => {
   }
 
   // Form sumbit
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        navigate('/')
         console.log(user, "SIGN UP USER");
         set(child(ref(db), "users-db"), {
           "user-id": user.uid,
           username: username,
           email: email,
         });
+        Home();
       })
       .catch((err) => {
         // const errorCode = err.code;
@@ -87,7 +92,7 @@ const Signup = () => {
 
 
   return (
-    <Grid>
+    <Grid sx={{mt: 15}}>
       <Paper elevation={20} sx={paperStyle}>
         <Grid align="center">
           <Avatar></Avatar>
@@ -197,6 +202,9 @@ const Signup = () => {
               </Button>
             )}
           </form>
+          <Typography sx={textStyle} >
+            Have an account already? <Link to='/login' underline='none' color='primary'>Log in</Link>
+          </Typography>
         </Grid>
       </Paper>
     </Grid>
