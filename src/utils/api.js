@@ -13,12 +13,19 @@ export const getPortfolioStocks = (uid) => {
     .catch((err) => console.log(err));
 };
 
-export const signUp = () => {
-  return formApi
-  .post('/sign-up', {
+// export const signUp = () => {
+//   return formApi
+//   .post('/sign-up', {
     
-  })
+//   })
+//   .then((response) => {
+//     console.log(response, "API")
+//   })
+// }
+
+export const getStockNews = () => {
+  return fromApi.get('/api/news')
   .then((response) => {
-    console.log(response, "API")
+    return response.data
   })
 }
