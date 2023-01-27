@@ -4,10 +4,14 @@ import {
   Avatar,
   Button,
   Grid,
+  IconButton,
+  InputAdornment,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {auth} from '../utils/firebase'
 import {signInWithEmailAndPassword} from 'firebase/auth'
 
@@ -16,9 +20,13 @@ const Login = () => {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
   const textStyle = { margin: "10px auto 0px" };
   
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate();
+  const [passwordShown, setPasswordShown] = useState(false)
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   const login = async (e) => {
     e.preventDefault()
@@ -26,7 +34,6 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       navigate('/')
-      console.log(userCredential)
     }).catch(err => {
       console.error(err);
       alert('Incorrect email or password');
@@ -34,7 +41,7 @@ const Login = () => {
   }
 
   return (
-    <Grid sx={{mt:15}}>
+    <Grid>
       <Paper elevation={20} sx={paperStyle}>
         <Grid align="center">
           <Avatar></Avatar>
@@ -55,9 +62,19 @@ const Login = () => {
               value={password}
               onChange={(e) => {setPassword(e.target.value)}}
               sx={textStyle}
+              type={passwordShown ? "text" : "password"}
               fullWidth
               label="Password"
               placeholder="Enter a password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton aria-label='toggle password' edge='end' onClick={togglePassword}>
+                    {passwordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               sx={textStyle}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import Home from './Home'
 import {
@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../utils/firebase";
 import { ref, set, child } from "firebase/database";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
@@ -91,8 +91,22 @@ const Signup = () => {
   };
 
 
+  const [authUser, setAuthUser] = useState(null)
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setAuthUser(user)
+        } else {
+            setAuthUser(null)
+        }
+    })
+    return () => {
+        listen();
+    }
+}, [])
+
   return (
-    <Grid sx={{mt: 15}}>
+    <Grid >
       <Paper elevation={20} sx={paperStyle}>
         <Grid align="center">
           <Avatar></Avatar>
@@ -202,9 +216,7 @@ const Signup = () => {
               </Button>
             )}
           </form>
-          <Typography sx={textStyle} >
-            Have an account already? <Link to='/login' underline='none' color='primary'>Log in</Link>
-          </Typography>
+          {authUser ? <Typography></Typography> : <Typography sx={textStyle}> Have an account already? <Link to='/login' underline='none' color='primary'>Log in</Link></Typography>}
         </Grid>
       </Paper>
     </Grid>
