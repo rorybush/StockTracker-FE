@@ -35,8 +35,16 @@ export const editStock = (uid) => {
   });
 };
 
+// Fetching list of stocks
 export const getStockList = () => {
   return fromApi.get(`/api/stocklist`).then(({ data }) => {
+    return data;
+  });
+};
+
+// Fetching list of FTSE
+export const getStockListFtse = () => {
+  return fromApi.get(`/api/stocklist/ftse`).then(({ data }) => {
     return data;
   });
 };
