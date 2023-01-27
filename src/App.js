@@ -7,7 +7,6 @@ import AboutSection from "./Components/AboutSection";
 import Navv from "./Components/Navv";
 import StockNews from "./Components/StockNews";
 import StockGraph from "./Components/StockGraph";
-import PostPortfolio from "./Components/PostPortfolio";
 import ShowPortfolio from "./Components/ShowPortfolio";
 
 function App() {
@@ -24,9 +23,9 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/news" element={<StockNews />}></Route>
         <Route path="/stockgraph" element={<StockGraph />}></Route>
+        <Route path="/portfolio" element={<ShowPortfolio />}></Route>
+        <Route path="/stockgraph" element={<StockGraph />}></Route>
       </Routes>
-      <PostPortfolio />
-      <ShowPortfolio />
     </div>
   );
 }
