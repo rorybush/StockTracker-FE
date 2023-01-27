@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
+import PostPortfolio from "./PostPortfolio";
 
 function ShowPortfolio() {
   const auth = getAuth();
@@ -42,6 +43,7 @@ function ShowPortfolio() {
 
   return (
     <div>
+      <PostPortfolio/>
       {Portfolio.map((stock) => {
         return (
           <ul key={stock.name}>
