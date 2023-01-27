@@ -29,6 +29,12 @@ export const deleteStock = (uid, stock) => {
   });
 };
 
+export const editStock = (uid) => {
+  return fromApi.patch(`/api/portfolio/${uid}/update`, {
+    // data: { stock: stock },
+  });
+};
+
 export const getStockList = () => {
   return fromApi.get(`/api/stocklist`).then(({ data }) => {
     return data;

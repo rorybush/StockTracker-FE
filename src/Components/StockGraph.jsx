@@ -7,8 +7,8 @@ function StockGraph() {
 
   useEffect(() => {
     api.fetchStockData().then((res) => {
-      console.log(res);
       const data = JSON.parse(res);
+
       const sortedData = Object.keys(data.Date).map((key) => {
         return {
           date: data.Date[key],
@@ -45,12 +45,39 @@ function StockGraph() {
     .y((d) => yScale(d.close))
     .curve(d3.curveMonotoneX);
 
+  const max = d3.max(Data, function (d) {
+    console.log(d);
+    return +d.close;
+  });
+
+  svg
+    .append("linearGradient")
+    .attr("id", "line-gradient")
+    .attr("gradientUnits", "userSpaceOnUse")
+    .attr("x1", 0)
+    .attr("y1", yScale(0))
+    .attr("x2", 0)
+    .attr("y2", yScale(max))
+    .selectAll("stop")
+    .data([
+      { offset: "0%", color: "green" },
+      { offset: "100%", color: "red" },
+    ])
+    .enter()
+    .append("stop")
+    .attr("offset", function (d) {
+      return d.offset;
+    })
+    .attr("stop-color", function (d) {
+      return d.color;
+    });
+
   svg
     .append("path")
     .datum(Data)
     .attr("d", line)
     .attr("fill", "none")
-    .attr("stroke", "blue")
+    .attr("stroke", "url(#line-gradient)")
     .attr("stroke-width", 2);
 
   const xAxis = d3.axisBottom(xScale);
