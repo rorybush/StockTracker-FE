@@ -1,24 +1,27 @@
-import {Routes, Route} from 'react-router-dom'
-import {CssBaseline} from '@mui/material'
-import Home from './components/Home'
-import Signup from './components/Signup'
-import Login from './components/Login'
-import AboutSection from './components/AboutSection';
-import Navv from './components/Navv'
-import StockNews from './components/StockNews'
-
+import { Routes, Route } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
+import Home from "./Components/Home";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
+import AboutSection from "./Components/AboutSection";
+import Navv from "./Components/Navv";
+import StockNews from "./Components/StockNews";
+import StockGraph from "./Components/StockGraph";
 
 function App() {
   return (
     <div className="App">
-      <CssBaseline/>
-      <Navv/>
+      <CssBaseline />
+      <Navv />
       <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/stock' element={<AboutSection/>}> </Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/signup' element={<Signup/>}></Route>
-        <Route path='/news' element={<StockNews/>}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/stock" element={<AboutSection />}>
+          {" "}
+        </Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/news" element={<StockNews />}></Route>
+        <Route path="/stockgraph" element={<StockGraph />}></Route>
       </Routes>
     </div>
   );
