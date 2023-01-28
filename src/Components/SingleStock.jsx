@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 const SingleStock = () => {
+  const [singleStock, setSingleStock] = useState({});
 
-    const [singleStock, setSingleStock] = useState({})
+  useEffect(() => {}, []);
 
-    useEffect(() => {
+  return <Container></Container>;
+};
 
-    }, [])
-    
-  return (
-    <Container>
-        
-    </Container>
-  )
-}
-
-export default SingleStock
+export default SingleStock;

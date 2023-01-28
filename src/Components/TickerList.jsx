@@ -58,13 +58,11 @@ const TickerList = () => {
   useEffect(() => {
     getTickerPrice(tickerArray).then((response) => {
       setPrices(response);
-      console.log(response);
     });
 
     const interval = setInterval(() => {
       getTickerPrice(tickerArray).then((response) => {
         setPrices(response);
-        console.log(response);
       });
     }, 10000);
     return () => clearInterval(interval);
