@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://stock-backend-nlko.onrender.com",
+  baseURL: "https://backend-stock.onrender.com",
 });
 
 export const getPortfolioStocks = (uid) => {
@@ -76,5 +76,24 @@ export const getSingleStock = (stock) => {
   return fromApi.get(`/api/stockdata/${stock}`).then((response) => {
     console.log(response);
     return response.data;
+  });
+};
+
+export const getTickerPrice = (tickers) => {
+  const tickerArr = tickers.map((ticker) => {
+    return `tickerArr=${ticker}`;
+  });
+
+  let endpoint = ``;
+  endpoint += tickerArr[0];
+
+  tickerArr.forEach((ticker, i) => {
+    if (i < 1) return;
+    return (endpoint += `&${ticker}`);
+  });
+
+  return fromApi.get(`/api/tickerinfo?${endpoint}`).then((data) => {
+    console.log(data);
+    return data;
   });
 };
