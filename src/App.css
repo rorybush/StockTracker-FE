@@ -35,7 +35,6 @@
 .searchbar--suggestions {
   position: absolute;
   top: calc(100% + 10px);
-  /* 100% is the height of the searchbar, 10px is added for padding */
   left: 0;
   right: 0;
   display: flex;
