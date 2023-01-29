@@ -51,7 +51,6 @@ export const getStockListFtse = () => {
 
 export const fetchStockData = () => {
   return fromApi.get(`/stock`).then(({ data }) => {
-    console.log(data);
     return data.stock;
   });
 };
@@ -93,14 +92,12 @@ export const getTickerPrice = (tickers) => {
   });
 
   return fromApi.get(`/api/tickerinfo?${endpoint}`).then(({ data }) => {
-    console.log(data);
     return data;
   });
 };
 
 export const getStockEvents = (ticker) => {
   return fromApi.get(`/api/calendar/${ticker}`).then(({ data }) => {
-    console.log(data);
     return data;
   });
 };
