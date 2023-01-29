@@ -9,3 +9,50 @@
 .upcoming-event {
   color: rgb(255, 0, 21);
 }
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 136, 209);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.searchbar:hover {
+  background-color: rgb(62, 154, 216);
+}
+
+.searchbar--input > input {
+  border: none;
+  background-color: transparent;
+  padding: 7px;
+  outline: none;
+  width: 100%;
+}
+
+.searchbar--suggestions {
+  position: absolute;
+  top: calc(100% + 10px);
+  /* 100% is the height of the searchbar, 10px is added for padding */
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(62, 154, 216);
+  padding: 5px;
+}
+
+.searchbar--suggestions > li {
+  list-style-type: none;
+  padding: 5px;
+  border-bottom: 1px solid rgba(0, 136, 209);
+}
+
+.searchbar--suggestions > li span {
+  margin-left: 1px;
+  margin-right: 1px;
+  color: rgb(2, 94, 156);
+}

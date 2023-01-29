@@ -10,13 +10,14 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import React, { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import {auth} from '../utils/firebase'
+import { auth } from "../utils/firebase";
+import SearchBarSuggestions from "./SearchBarSuggestions";
 
 // const Search = styled("div")(({theme}) => ({
 //     backgroundColor: "white",
@@ -70,62 +71,70 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Icons = styled(Box)(({ theme }) => ({
-    display:"none",
-    gap: 15,
-    alignItems: "center",
-    [theme.breakpoints.up("md")]:{
-        display: "flex"
-    }
+  display: "none",
+  gap: 15,
+  alignItems: "center",
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+  },
 }));
 
 const UserBox = styled(Box)(({ theme }) => ({
-    display:"flex",
-    gap: 5,
-    alignItems: "center",
-    [theme.breakpoints.up("md")]:{
-        display: "none"
-    }
+  display: "flex",
+  gap: 5,
+  alignItems: "center",
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
 }));
 
-
 const Navv = () => {
+  const [open, setOpen] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
 
-    const [open, setOpen] = useState(false)
-    const [authUser, setAuthUser] = useState(null)
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
+    return () => {
+      listen();
+    };
+  }, []);
 
-    useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthUser(user)
-            } else {
-                setAuthUser(null)
-            }
+  const logout = () => {
+    if (authUser) {
+      signOut(auth)
+        .then(() => {
+          alert("User logged out!");
         })
-        return () => {
-            listen();
-        }
-    }, [])
-  
-    const logout = () => {
-        if(authUser) {
-            signOut(auth)
-            .then(() => {
-              alert('User logged out!')
-            }).catch(err => console.log(err))
-        }
-    }  
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
-    <AppBar position="sticky" color='info'>
+    <AppBar position="sticky" color="info">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* <Typography component={Link} to={'/'} variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           PyNance
         </Typography> */}
-        <Button component={Link} to={'/'} size='large' variant='text' color="inherit" sx={{ display: { xs: "none", sm: "block" } }}>
-            PyNance
+        <Button
+          component={Link}
+          to={"/"}
+          size="large"
+          variant="text"
+          color="inherit"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
+          PyNance
         </Button>
-        <NightsStayOutlinedIcon sx={{ display: { xs: "block", sm: "none" }, mr:2 }} />
-        <Search>
+        <NightsStayOutlinedIcon
+          sx={{ display: { xs: "block", sm: "none" }, mr: 2 }}
+        />
+        {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -133,16 +142,40 @@ const Navv = () => {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
-        </Search>
+        </Search> */}
+        <SearchBarSuggestions />
         <Icons>
-            <Button variant='text' color='inherit' size="large" component={Link} to={'/'}>HOME</Button>
-            <Button variant='text' color='inherit' size="large">MARKET</Button>
-            <Button variant='text' color='inherit' size="large">NEWS</Button>
-            <Button variant='outlined' color='inherit' size="medium" component={Link} to={'/signup'}>Signup</Button>
-            <Avatar sx={{width:30, height:30 }} onClick={(e) => setOpen(true)}/>
+          <Button
+            variant="text"
+            color="inherit"
+            size="large"
+            component={Link}
+            to={"/"}
+          >
+            HOME
+          </Button>
+          <Button variant="text" color="inherit" size="large">
+            MARKET
+          </Button>
+          <Button variant="text" color="inherit" size="large">
+            NEWS
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            size="medium"
+            component={Link}
+            to={"/signup"}
+          >
+            Signup
+          </Button>
+          <Avatar
+            sx={{ width: 30, height: 30 }}
+            onClick={(e) => setOpen(true)}
+          />
         </Icons>
         <UserBox onClick={(e) => setOpen(true)}>
-            <MenuIcon/>           
+          <MenuIcon />
         </UserBox>
       </Toolbar>
       <Menu
@@ -151,17 +184,23 @@ const Navv = () => {
         open={open}
         onClose={(e) => setOpen(false)}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
       >
-        {authUser ? <MenuItem>Logged in</MenuItem> :
-        <MenuItem><Link to='/login' color="secondary" underline='none'>Login</Link></MenuItem>
-        }
+        {authUser ? (
+          <MenuItem>Logged in</MenuItem>
+        ) : (
+          <MenuItem>
+            <Link to="/login" color="secondary" underline="none">
+              Login
+            </Link>
+          </MenuItem>
+        )}
         <MenuItem>Portfolio</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
