@@ -157,7 +157,7 @@ const Navv = () => {
           <Button variant="text" color="inherit" size="large">
             MARKET
           </Button>
-          <Button variant="text" color="inherit" size="large">
+          <Button variant="text" color="inherit" size="large" component={Link} to={'/news'}>
             NEWS
           </Button>
           <Button

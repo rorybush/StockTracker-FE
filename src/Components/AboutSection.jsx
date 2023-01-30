@@ -12,11 +12,10 @@ import {
 import {Link} from 'react-router-dom'
 
 const AboutSection = ({ symbol }) => {
-  console.log(symbol, "SYMBOL");
   const [stock, setStock] = useState({});
 
   useEffect(() => {
-    api.getSingleStock("msft").then((stockData) => {
+    api.getSingleStock(symbol).then((stockData) => {
       setStock(stockData);
     });
   }, []);

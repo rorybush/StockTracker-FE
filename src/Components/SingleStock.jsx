@@ -10,9 +10,9 @@ const SingleStock = () => {
 
   return (
     <Container maxWidth="lg" margin="0px auto">
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{display:"flex", justifyContent:"space-between"}}> 
         <Grid item xs={12} sm={6}>
-          {/* <StockGraph /> */}
+          <StockGraph />
         </Grid>
         <Grid item xs={12} sm={6}>
           <AboutSection symbol={symbol} />

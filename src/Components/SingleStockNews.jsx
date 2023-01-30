@@ -16,12 +16,12 @@ import moment from "moment";
 
 
 const SingleStockNews = ({symbol}) => {
-    console.log(symbol, "SINGLE STOCK NEWS");
 
     const [singleStockNews, setSingleStockNews] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+      setIsLoading(true)
         api.getSingleStockNews(symbol).then((data) => {
             setSingleStockNews(data)
             setIsLoading(false)
@@ -29,7 +29,6 @@ const SingleStockNews = ({symbol}) => {
             console.log(err)
         })
     },[])
-    {console.log(singleStockNews)}
 
     if(isLoading) return <p>Loading...</p>
     

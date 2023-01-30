@@ -18,16 +18,21 @@ const StockNews = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true)
     api.getStockNews().then((data) => {
       setStockNews(data);
       setIsLoading(false);
-    });
+    }).catch(err => {
+      console.log(err)
+    })
   }, []);
+
+  if(isLoading) return <p>Loading...</p>
 
   return (
     <Container maxWidth="md" sx={{ padding: "35px 20px", width: 320 }}>
       <Grid container spacing={0.5}>
-        {stockNews.map((news) => (
+        {stockNews.length > 0 && stockNews.map((news) => (
           <Grid item key={news.uuid}>
             <Card sx={{ display: "flex" }}>
               <CardContent
