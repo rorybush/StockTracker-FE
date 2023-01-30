@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://stock-backend-nlko.onrender.com",
+  baseURL: "https://backend-stock.onrender.com",
 });
 
 export const getPortfolioStocks = (uid) => {
@@ -66,11 +66,20 @@ export const fetchStockData = () => {
 //   })
 // }
 
+// List of all news
 export const getStockNews = () => {
   return fromApi.get("/api/news").then((response) => {
     return response.data;
   });
 };
+
+// List of specific news
+export const getSingleStockNews = (symbol) => {
+  return fromApi.get(`/api/news/${symbol}`).then((response) =>{
+    console.log(response, "API SINGLE STOCK NEWS");
+    return response.data
+  })
+}
 
 export const getSingleStock = (stock) => {
   return fromApi.get(`/api/stockdata/${stock}`).then((response) => {

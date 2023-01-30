@@ -137,7 +137,7 @@ const Navv = () => {
         <Icons>
             <Button variant='text' color='inherit' size="large" component={Link} to={'/'}>HOME</Button>
             <Button variant='text' color='inherit' size="large">MARKET</Button>
-            <Button variant='text' color='inherit' size="large">NEWS</Button>
+            <Button variant='text' color='inherit' size="large" component={Link} to={'/news'}>NEWS</Button>
             <Button variant='outlined' color='inherit' size="medium" component={Link} to={'/signup'}>Signup</Button>
             <Avatar sx={{width:30, height:30 }} onClick={(e) => setOpen(true)}/>
         </Icons>

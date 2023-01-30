@@ -8,6 +8,7 @@ import Navv from "./Components/Navv";
 import StockNews from "./Components/StockNews";
 import StockGraph from "./Components/StockGraph";
 import ShowPortfolio from "./Components/ShowPortfolio";
+import SingleStock from "./Components/SingleStock";
 
 function App() {
   return (
@@ -22,9 +23,9 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/news" element={<StockNews />}></Route>
+        <Route path="/stock/:symbol" element={<SingleStock />}></Route>
         <Route path="/stockgraph" element={<StockGraph />}></Route>
         <Route path="/portfolio" element={<ShowPortfolio />}></Route>
-        <Route path="/stockgraph" element={<StockGraph />}></Route>
       </Routes>
     </div>
   );

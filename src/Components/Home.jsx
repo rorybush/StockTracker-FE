@@ -8,6 +8,7 @@ const Home = () => {
     <Container maxWidth="md">
       <Grid container spacing={2}>
         <Grid item>
+          <p>hey</p>
         {/* <StockNews/> */}
         <StocksList/>
         </Grid>

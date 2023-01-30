@@ -26,8 +26,8 @@ function StockGraph() {
   const svg = d3
     .select("#chart-element")
     .append("svg")
-    .attr("width", 800)
-    .attr("height", 600);
+    .attr("width", 400)
+    .attr("height", 300);
 
   const xScale = d3
     .scaleTime()
@@ -46,7 +46,7 @@ function StockGraph() {
     .curve(d3.curveMonotoneX);
 
   const max = d3.max(Data, function (d) {
-    console.log(d);
+    console.log(d)
     return +d.close;
   });
 

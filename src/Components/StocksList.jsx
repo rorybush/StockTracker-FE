@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import * as api from '../utils/api'
+import {Link} from 'react-router-dom'
+
 
 const StocksList = () => {
 
@@ -12,12 +14,13 @@ const StocksList = () => {
     }, [])
   return (
     <div>
+      {console.log(stocksList)}
       <ul>
         {stocksList.map((stock) => {
           return (
             <li key={stock.symbol}>
-              <h5>{stock.companyName}</h5>
-              <h6>{stock.symbol}</h6>
+              <Link to={`/stock/${stock.symbol}`}><h5>{stock.companyName}</h5>
+              <h6>{stock.symbol}</h6></Link>
             </li>
           )
         })}
