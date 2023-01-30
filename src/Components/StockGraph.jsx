@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@6/+esm";
+import { useParams } from "react-router-dom";
 
 function StockGraph() {
   const [Data, setData] = useState([]);
 
+  const { symbol } = useParams();
+
   useEffect(() => {
-    api.fetchStockData().then((res) => {
+    api.fetchStockData(symbol).then((res) => {
       const data = JSON.parse(res);
       const sortedData = Object.keys(data.Date).map((key) => {
         return {
@@ -20,7 +23,7 @@ function StockGraph() {
       });
       setData(sortedData);
     });
-  }, []);
+  }, [symbol]);
 
   const svg = d3.select(".svg-canvas");
   svg.selectAll("*").remove();

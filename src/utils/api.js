@@ -52,8 +52,8 @@ export const getStockListFtse = () => {
   });
 };
 
-export const fetchStockData = () => {
-  return fromApi.get(`/stock`).then(({ data }) => {
+export const fetchStockData = (symbol) => {
+  return fromApi.get(`/stock/${symbol}`).then(({ data }) => {
     return data.stock;
   });
 };
