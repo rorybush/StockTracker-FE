@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
 import PostPortfolio from "./PostPortfolio";
+import PatchPortfolio from "./PatchPortfolio";
 
 function ShowPortfolio() {
   const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
   const [Portfolio, setPortfolio] = useState([]);
+  const [ShowEdit, setShowEdit] = useState(false);
 
   useEffect(() => {
     api.getPortfolioStocks(uid).then((data) => {
@@ -38,12 +40,13 @@ function ShowPortfolio() {
 
   const editStock = (e) => {
     e.preventDefault();
+    setShowEdit((curValue) => !curValue);
     api.deleteStock(uid, e.target.value);
   };
 
   return (
     <div>
-      <PostPortfolio/>
+      <PostPortfolio />
       {Portfolio.map((stock) => {
         return (
           <ul key={stock.name}>
@@ -57,9 +60,11 @@ function ShowPortfolio() {
             <button onClick={editStock} value={stock.name}>
               EDIT STOCK
             </button>
+            {ShowEdit && <PatchPortfolio />}
           </ul>
         );
       })}
+
       <button onClick={deletePortfolio}>DELETE PORTFOLIO</button>
     </div>
   );

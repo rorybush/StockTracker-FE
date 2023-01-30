@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import AboutSection from "./AboutSection";
 import SingleStockNews from "./SingleStockNews";
@@ -28,6 +29,16 @@ const SingleStock = () => {
       </Grid>  
     </Container>
   );
+=======
+import React, { useEffect, useState } from "react";
+
+const SingleStock = () => {
+  const [singleStock, setSingleStock] = useState({});
+
+  useEffect(() => {}, []);
+
+  return <Container></Container>;
+>>>>>>> 9bf2e3a8e8cfed5284899cb960e373cd921e837c
 };
 
 export default SingleStock;
