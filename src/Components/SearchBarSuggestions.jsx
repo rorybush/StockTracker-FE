@@ -40,7 +40,7 @@ function SearchBarSuggestions() {
           {filteredSearchData.slice(0, 10).map((stock) => (
             <li key={stock.symbol}>
               <Link
-                to={stock.symbol}
+                to={`stock/${stock.symbol}`}
                 style={{
                   textDecoration: "none",
                   color: "inherit",

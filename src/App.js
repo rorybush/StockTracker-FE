@@ -9,12 +9,14 @@ import StockNews from "./Components/StockNews";
 import StockGraph from "./Components/StockGraph";
 import ShowPortfolio from "./Components/ShowPortfolio";
 import SingleStock from "./Components/SingleStock";
+import TickerList from "./Components/TickerList";
 
 function App() {
   return (
     <div className="App">
       <CssBaseline />
       <Navv />
+      <TickerList />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/stock" element={<AboutSection />}>

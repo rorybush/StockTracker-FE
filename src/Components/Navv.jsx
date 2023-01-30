@@ -145,13 +145,6 @@ const Navv = () => {
         </Search> */}
         <SearchBarSuggestions />
         <Icons>
-<<<<<<< HEAD
-            <Button variant='text' color='inherit' size="large" component={Link} to={'/'}>HOME</Button>
-            <Button variant='text' color='inherit' size="large">MARKET</Button>
-            <Button variant='text' color='inherit' size="large" component={Link} to={'/news'}>NEWS</Button>
-            <Button variant='outlined' color='inherit' size="medium" component={Link} to={'/signup'}>Signup</Button>
-            <Avatar sx={{width:30, height:30 }} onClick={(e) => setOpen(true)}/>
-=======
           <Button
             variant="text"
             color="inherit"
@@ -180,7 +173,6 @@ const Navv = () => {
             sx={{ width: 30, height: 30 }}
             onClick={(e) => setOpen(true)}
           />
->>>>>>> 9bf2e3a8e8cfed5284899cb960e373cd921e837c
         </Icons>
         <UserBox onClick={(e) => setOpen(true)}>
           <MenuIcon />
