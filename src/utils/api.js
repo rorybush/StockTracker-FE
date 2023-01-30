@@ -29,9 +29,12 @@ export const deleteStock = (uid, stock) => {
   });
 };
 
-export const editStock = (uid) => {
+export const editStock = (uid, stockName, date, quantity, price) => {
   return fromApi.patch(`/api/portfolio/${uid}/update`, {
-    // data: { stock: stock },
+    name: stockName,
+    date: date,
+    quantity: quantity,
+    price: price,
   });
 };
 
@@ -74,11 +77,11 @@ export const getStockNews = () => {
 
 // List of specific news
 export const getSingleStockNews = (symbol) => {
-  return fromApi.get(`/api/news/${symbol}`).then((response) =>{
+  return fromApi.get(`/api/news/${symbol}`).then((response) => {
     console.log(response, "API SINGLE STOCK NEWS");
-    return response.data
-  })
-}
+    return response.data;
+  });
+};
 
 export const getSingleStock = (stock) => {
   return fromApi.get(`/api/stockdata/${stock}`).then((response) => {

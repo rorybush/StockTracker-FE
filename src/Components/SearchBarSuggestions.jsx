@@ -1,28 +1,16 @@
+//searchbar
+
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import SearchIcon from "@mui/icons-material/Search";
 import "../App.css";
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-// }));
+import { Link } from "react-router-dom";
 
 function SearchBarSuggestions() {
   const [StockList, setStockList] = useState([]);
   const [UserInput, setUserInput] = useState("");
   const [filteredSearchData, setfilteredSearchData] = useState([]);
 
-  //fetching data takes a while, find another way?
   useEffect(() => {
     api.getStockList().then((data) => {
       setStockList(data);
@@ -51,7 +39,18 @@ function SearchBarSuggestions() {
         <div className="searchbar--suggestions">
           {filteredSearchData.slice(0, 10).map((stock) => (
             <li key={stock.symbol}>
-              {stock.companyName} <span>•</span> {stock.symbol}
+              <Link
+                to={stock.symbol}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "block",
+                  height: "100%",
+                  width: "100%",
+                }}
+              >
+                {stock.companyName} <span>•</span> {stock.symbol}
+              </Link>
             </li>
           ))}
         </div>

@@ -1,3 +1,5 @@
+//post portfolio
+
 import React from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
@@ -10,9 +12,9 @@ function PostPortfolio() {
   const postNewStock = (e) => {
     e.preventDefault();
     const stockName = e.target[0].value;
-    const quantity = e.target[2].value;
-    const price = e.target[3].value;
-    const date = e.target[4].value;
+    const quantity = e.target[1].value;
+    const price = e.target[2].value;
+    const date = e.target[3].value;
     api.postPortfolioStock(uid, stockName, date, quantity, price);
   };
 

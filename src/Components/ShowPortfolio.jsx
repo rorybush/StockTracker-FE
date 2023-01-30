@@ -1,3 +1,5 @@
+//show portfolio
+
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
@@ -9,11 +11,14 @@ function ShowPortfolio() {
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
   const [Portfolio, setPortfolio] = useState([]);
-  const [ShowEdit, setShowEdit] = useState(false);
+  const [showEditStock, setShowEditStock] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     api.getPortfolioStocks(uid).then((data) => {
-      console.log(data);
+      setIsLoading(false);
       const cleanStockData = data.map((stock) => {
         const stockName = Object.keys(stock)[0];
         const { date, name, price, quantity } = stock[stockName];
@@ -32,20 +37,23 @@ function ShowPortfolio() {
     e.preventDefault();
     api.deletePortfolio(uid);
   };
-  //add confirmation to ensure they want to delete?
+
   const deleteStock = (e) => {
     e.preventDefault();
     api.deleteStock(uid, e.target.value);
   };
 
-  const editStock = (e) => {
+  const editStock = (e, stockName) => {
     e.preventDefault();
-    setShowEdit((curValue) => !curValue);
-    api.deleteStock(uid, e.target.value);
+    setShowEditStock((curValue) => ({
+      ...curValue,
+      [stockName]: !curValue[stockName],
+    }));
   };
 
   return (
     <div>
+      {isLoading && <p>Loading...</p>}
       <PostPortfolio />
       {Portfolio.map((stock) => {
         return (
@@ -54,13 +62,18 @@ function ShowPortfolio() {
             <li>Date: {stock.date}</li>
             <li>Price: {stock.price}</li>
             <li>Quantity: {stock.quantity}</li>
-            <button onClick={deleteStock} value={stock.name}>
-              DELETE STOCK
-            </button>
-            <button onClick={editStock} value={stock.name}>
+            <button onClick={deleteStock}>DELETE STOCK</button>
+            <button onClick={(e) => editStock(e, stock.name)}>
               EDIT STOCK
             </button>
-            {ShowEdit && <PatchPortfolio />}
+            {showEditStock[stock.name] && (
+              <PatchPortfolio
+                stockName={stock.name}
+                date={stock.date}
+                price={stock.price}
+                quantity={stock.quantity}
+              />
+            )}
           </ul>
         );
       })}
