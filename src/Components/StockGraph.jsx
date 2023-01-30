@@ -8,7 +8,7 @@ function StockGraph() {
   useEffect(() => {
     api.fetchStockData().then((res) => {
       const data = JSON.parse(res);
-
+      console.log(Data);
       const sortedData = Object.keys(data.Date).map((key) => {
         return {
           date: data.Date[key],
@@ -26,18 +26,18 @@ function StockGraph() {
   const svg = d3
     .select("#chart-element")
     .append("svg")
-    .attr("width", 400)
-    .attr("height", 300);
+    .attr("width", 500)
+    .attr("height", 400);
 
   const xScale = d3
     .scaleTime()
     .domain(d3.extent(Data, (d) => new Date(d.date)))
-    .range([50, 750]);
+    .range([50, 450]);
 
   const yScale = d3
     .scaleLinear()
     .domain([d3.min(Data, (d) => d.low), d3.max(Data, (d) => d.high)])
-    .range([550, 50]);
+    .range([350, 50]);
 
   const line = d3
     .line()
@@ -46,7 +46,6 @@ function StockGraph() {
     .curve(d3.curveMonotoneX);
 
   const max = d3.max(Data, function (d) {
-    console.log(d)
     return +d.close;
   });
 
@@ -83,7 +82,7 @@ function StockGraph() {
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale);
 
-  svg.append("g").attr("transform", "translate(0, 550)").call(xAxis);
+  svg.append("g").attr("transform", "translate(0, 350)").call(xAxis);
 
   svg.append("g").attr("transform", "translate(50, 0)").call(yAxis);
 
