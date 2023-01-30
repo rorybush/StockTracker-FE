@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
 import PostPortfolio from "./PostPortfolio";
 import PatchPortfolio from "./PatchPortfolio";
+import { Box, Stack } from "@mui/material";
 
 function ShowPortfolio() {
   const auth = getAuth();
@@ -52,7 +53,8 @@ function ShowPortfolio() {
   };
 
   return (
-    <div>
+    <Box>
+      <Stack direction='row' spacing={3} justifyContent="space-around">
       {isLoading && <p>Loading...</p>}
       <PostPortfolio />
       {Portfolio.map((stock) => {
@@ -79,7 +81,8 @@ function ShowPortfolio() {
       })}
 
       <button onClick={deletePortfolio}>DELETE PORTFOLIO</button>
-    </div>
+      </Stack>
+    </Box>
   );
 }
 

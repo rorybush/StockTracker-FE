@@ -201,7 +201,9 @@ const Navv = () => {
             </Link>
           </MenuItem>
         )}
-        <MenuItem>Portfolio</MenuItem>
+        <MenuItem> <Link to="/portfolio" color="secondary" underline="none">
+              Portfolio
+            </Link></MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </AppBar>
