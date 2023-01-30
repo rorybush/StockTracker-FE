@@ -8,7 +8,6 @@ function StockGraph() {
   useEffect(() => {
     api.fetchStockData().then((res) => {
       const data = JSON.parse(res);
-      console.log(Data);
       const sortedData = Object.keys(data.Date).map((key) => {
         return {
           date: data.Date[key],
@@ -23,11 +22,8 @@ function StockGraph() {
     });
   }, []);
 
-  const svg = d3
-    .select("#chart-element")
-    .append("svg")
-    .attr("width", 500)
-    .attr("height", 400);
+  const svg = d3.select(".svg-canvas");
+  svg.selectAll("*").remove();
 
   const xScale = d3
     .scaleTime()
@@ -88,7 +84,7 @@ function StockGraph() {
 
   return (
     <div>
-      <div id="chart-element"></div>
+      <svg className="svg-canvas" width="500px" height="400px" />
     </div>
   );
 }
