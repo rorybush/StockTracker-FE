@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://backend-stock.onrender.com",
+  baseURL: "https://stock-backend-nlko.onrender.com",
 });
 
 export const getPortfolioStocks = (uid) => {
@@ -46,8 +46,9 @@ export const getStockList = () => {
 };
 
 // Fetching list of FTSE
-export const getStockListFtse = () => {
-  return fromApi.get(`/api/stocklist/ftse`).then(({ data }) => {
+export const getStockListNasdaq = () => {
+  return fromApi.get(`/api/stocklist/nasdaq`).then(({ data }) => {
+    console.log(data, "API")
     return data;
   });
 };
