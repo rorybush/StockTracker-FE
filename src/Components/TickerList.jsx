@@ -1,4 +1,4 @@
-import { Typography, CircularProgress, Box } from "@mui/material";
+import { Typography, LinearProgress, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { getTickerPrice } from "../utils/api";
@@ -74,8 +74,8 @@ const TickerList = () => {
 
   if (IsTickerLoading)
     return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <CircularProgress />
+      <Box sx={{ width: '70%', m:"20px auto 50px"}}>
+        <LinearProgress color="info"/>
       </Box>
     );
 

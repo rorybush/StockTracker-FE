@@ -79,7 +79,6 @@ function ShowPortfolio() {
         }}
       >
         <Stack direction="row" spacing={3} justifyContent="space-around">
-          {isLoading && <p>Loading...</p>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <PostPortfolio setPortfolio={setPortfolio} />
