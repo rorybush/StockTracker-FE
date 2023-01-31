@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
 import "./postPortfolio.css";
-import { Grid, Paper, TextField, Button } from "@mui/material";
+import { Grid, Paper, TextField, Button, Typography } from "@mui/material";
 
 
 
@@ -21,7 +21,7 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
 
   const postNewStock = (e) => {
     e.preventDefault();
-
+    console.log(e, "post function")
     setPortfolio((currStocks) => {
       return [NewStock, ...currStocks];
     });
@@ -36,14 +36,23 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
   };
 
   return (
-    <div>
+    <Grid>
+      <Paper elevation={10} sx={paperStyle}>
+        <Grid align='center'>
+          <Typography variant='subtitle1' sx={{mb:2}}>
+            Add stocks to your portfolio.
+          </Typography>
       {uid && (
         <form onSubmit={postNewStock}>
-          <label>Stock Name </label>
-          <input
+          
+          <TextField
             type="text"
             name="stockName"
+            label="Stock Name"
+            placeholder="Enter stock name"
+            fullWidth
             required
+            sx={textStyle}
             onChange={(e) => {
               setNewStock({
                 ...NewStock,
@@ -52,11 +61,15 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
             }}
           />
 
-          <label>Quantity </label>
-          <input
+          
+          <TextField
             type="number"
             name="quantity"
+            label="Quantity"
             required
+            fullWidth
+            placeholder="Enter quantity"
+            sx={textStyle}
             onChange={(e) => {
               setNewStock({
                 ...NewStock,
@@ -65,12 +78,16 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
             }}
           />
 
-          <label>Purchase Price </label>
-          <input
+          
+          <TextField
             type="number"
             step="0.01"
             name="price"
+            label="Purchase Price"
+            placeholder="Enter purchase price"
+            fullWidth
             required
+            sx={textStyle}
             onChange={(e) => {
               setNewStock({
                 ...NewStock,
@@ -79,11 +96,13 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
             }}
           />
 
-          <label>Purchase Date </label>
-          <input
+          
+          <TextField
             type="date"
             name="date"
             required
+            fullWidth
+            sx={textStyle}
             onChange={(e) => {
               setNewStock({
                 ...NewStock,
@@ -92,10 +111,17 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
             }}
           />
 
-          <input type="submit" />
+          <Button 
+          type="submit"
+          sx={textStyle}
+          fullWidth
+          variant="contained"
+           > Save</Button>
         </form>
       )}
-    </div>
+      </Grid>
+      </Paper>
+    </Grid>
   );
 }
 

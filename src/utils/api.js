@@ -111,6 +111,7 @@ export const getTickerPrice = (tickers) => {
 
 export const getStockEvents = (ticker) => {
   return fromApi.get(`/api/calendar/${ticker}`).then(({ data }) => {
+    console.log(data, "API")
     return data;
   });
 };

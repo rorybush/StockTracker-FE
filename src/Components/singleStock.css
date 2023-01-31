@@ -1,0 +1,23 @@
+.about-section_container {
+    margin-left: 2rem;
+    display: grid;
+    grid-template-columns: 40vw 40vw;
+    grid-template-rows: 60vh 15vh 1fr;
+    grid-template-areas: 
+    'graph about'
+    'calender about'
+    'news about'
+}
+
+.graph {
+    grid-area: graph;
+}
+.about {
+    grid-area: about;
+}
+.news {
+    grid-area: news;
+}
+.calender {
+    grid-area: calender;
+}

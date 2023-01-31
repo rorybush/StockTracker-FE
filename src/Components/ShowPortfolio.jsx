@@ -13,10 +13,12 @@ import {
   ListItemText,
   Container,
   Grid,
+  Divider,
 } from "@mui/material";
 
 function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
+  
   const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
@@ -67,42 +69,45 @@ function ShowPortfolio() {
 
   return (
     <Container maxWidth="lg">
+      <Box sx={{display: "flex", flexDirection:'column', justifyContent:"center",}}>
       <Stack direction="row" spacing={3} justifyContent="space-around">
         {isLoading && <p>Loading...</p>}
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <PostPortfolio />
+            <PostPortfolio setPortfolio={setPortfolio}/>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Paper elevation={10} sx={{ paperStyle }}>
+            <Paper elevation={10} sx={paperStyle }>
               {Portfolio.map((stock) => {
                 return (
                   <List key={stock.name}>
-                    <ListItem divider disableGutters>
+                    <ListItem disableGutters>
                       <ListItemText>
                         Name: {stock.name.toUpperCase()}
                       </ListItemText>
                     </ListItem>
-                    <ListItem divider disableGutters>
+                    <ListItem disableGutters>
                       <ListItemText>Date: {stock.date}</ListItemText>
                     </ListItem>
-                    <ListItem divider disableGutters>
+                    <ListItem disableGutters>
                       <ListItemText>Price: {stock.price}</ListItemText>
                     </ListItem>
-                    <ListItem divider disableGutters>
+                    <ListItem disableGutters>
                       <ListItemText>Quantity: {stock.quantity}</ListItemText>
                     </ListItem>
-                    <ListItem divider disableGutters>
-                      <Button onClick={deleteStock} variant="contained">
+                    <ListItem disableGutters >
+                      <Button onClick={deleteStock} variant="contained" size="small" sx={{mr:2}}>
                         DELETE STOCK
                       </Button>
                       <Button
                         onClick={(e) => editStock(e, stock.name)}
                         variant="contained"
+                        size="small"
                       >
                         EDIT STOCK
                       </Button>
                     </ListItem>
+                    <Divider sx={{mt:3}}></Divider>
                     {showEditStock[stock.name] && (
                       <PatchPortfolio
                         stockName={stock.name}
@@ -118,9 +123,10 @@ function ShowPortfolio() {
           </Grid>
         </Grid>
       </Stack>
-      <Button onClick={deletePortfolio} variant="outlined" color="info">
+      <Button onClick={deletePortfolio} variant="outlined" color="info" sx={{width: 250, m:"0px auto 20px"}}>
         DELETE PORTFOLIO
       </Button>
+      </Box>
     </Container>
   );
 }
