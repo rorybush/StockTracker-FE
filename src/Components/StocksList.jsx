@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import * as api from '../utils/api'
-import {Link} from 'react-router-dom'
-import { Box } from '@mui/material'
-import './stocksList.css'
-
+import React, { useEffect, useState } from "react";
+import * as api from "../utils/api";
+import { Link } from "react-router-dom";
+import { Box, CircularProgress } from "@mui/material";
+import "./stocksList.css";
 
 const StocksList = () => {
+  const [stocksList, setStocksList] = useState([]);
+  const [IsStockListLoading, setIsStockListLoading] = useState(false);
 
-    const [stocksList, setStocksList] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setIsStockListLoading(true);
+    api
+      .getStockListNasdaq()
+      .then((data) => {
+        setStocksList(data);
+        setIsStockListLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    useEffect(() => {
-      setIsLoading(true)
-      api.getStockListNasdaq().then((data) => {
-        console.log(data, "DATA")
-        setStocksList(data)
-        setIsLoading(false)
-      }).catch(err => console.log(err))
-    }, [])
-
-    if(isLoading) return <p>Loading...</p>
+  if (IsStockListLoading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
 
   return (
     <div>
@@ -27,15 +32,17 @@ const StocksList = () => {
         {stocksList.map((stock) => {
           return (
             <li key={stock.symbol} id="stock-list">
-              <Link to={`/stock/${stock.symbol}`}><h5>{stock.companyName} ({stock.symbol})</h5>
+              <Link to={`/stock/${stock.symbol}`}>
+                <h5>
+                  {stock.companyName} ({stock.symbol})
+                </h5>
               </Link>
             </li>
-          )
+          );
         })}
       </Box>
     </div>
-   
-  )
-}
+  );
+};
 
-export default StocksList
+export default StocksList;

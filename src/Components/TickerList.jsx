@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Typography, CircularProgress, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { getTickerPrice } from "../utils/api";
@@ -55,9 +55,11 @@ const TickerList = () => {
 
   const [prices, setPrices] = useState({});
   const [previous, setPrevious] = useState(null);
+  const [IsTickerLoading, setIsTickerLoading] = useState(true);
 
   useEffect(() => {
     getTickerPrice(tickerArray).then((response) => {
+      setIsTickerLoading(false);
       setPrices(response);
     });
 
@@ -70,6 +72,13 @@ const TickerList = () => {
     return () => clearInterval(interval);
   }, [prices]);
 
+  if (IsTickerLoading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+
   return (
     <Typography
       component="div"
@@ -79,7 +88,9 @@ const TickerList = () => {
     >
       {tickerArray.map((ticker) => (
         <div className="Ticker" key={ticker} style={{ marginRight: "20px" }}>
-          <h2 className="ticker-price">{`${ticker} ${fixPrice(prices[ticker])}`}</h2>
+          <h2 className="ticker-price">{`${ticker} ${fixPrice(
+            prices[ticker]
+          )}`}</h2>
         </div>
       ))}
     </Typography>

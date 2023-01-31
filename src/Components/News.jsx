@@ -10,44 +10,55 @@ import {
   CardMedia,
   CardContent,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import moment from "moment";
 
 const StockNews = () => {
   const [stockNews, setStockNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [StockNewsError, setStockNewsError] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
     api
       .getStockNews()
       .then((data) => {
-        setStockNews(data);
+        if (Array.isArray(data) && data.length >= 1) {
+          setStockNews(data);
+        } else if (typeof data === "string") {
+          setStockNewsError(data);
+        }
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setStockNewsError(err);
       });
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ padding: "35px 20px", margin: "0 auto"}}
-    >
+    <Container maxWidth="lg" sx={{ padding: "35px 20px", margin: "0 auto" }}>
       <Grid container spacing={3}>
+        {!(Array.isArray(stockNews) && stockNews.length >= 1) && (
+          <p>{StockNewsError}</p>
+        )}
         {stockNews.map((news) => (
-          <Grid item key={news.uuid} xs={12} sm={6} md={4} >
-            <Card sx={{ display: "flex"}}>
+          <Grid item key={news.uuid} xs={12} sm={6} md={4}>
+            <Card sx={{ display: "flex" }}>
               <CardActionArea href={news.link} target="_blank">
                 <CardContent
                   sx={{
                     display: "flex",
                     flexDirection: "column",
                     width: 340,
-                    height: 380
+                    height: 380,
                   }}
                 >
                   {news.hasOwnProperty("thumbnail") ? (
