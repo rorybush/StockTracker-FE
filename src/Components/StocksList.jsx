@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as api from '../utils/api'
 import {Link} from 'react-router-dom'
 import { Box } from '@mui/material'
+import './stocksList.css'
 
 
 const StocksList = () => {
@@ -11,23 +12,23 @@ const StocksList = () => {
 
     useEffect(() => {
       setIsLoading(true)
-      api.getStockListFtse().then((data) => {
+      api.getStockListNasdaq().then((data) => {
+        console.log(data, "DATA")
         setStocksList(data)
-        setIsLoading(true)
-      })
+        setIsLoading(false)
+      }).catch(err => console.log(err))
     }, [])
 
     if(isLoading) return <p>Loading...</p>
 
   return (
     <div>
-      {console.log(stocksList)}
       <Box>
         {stocksList.map((stock) => {
           return (
-            <li key={stock.symbol}>
-              <Link to={`/stock/${stock.symbol}`}><h5>{stock.companyName}</h5>
-              <h6>{stock.symbol}</h6></Link>
+            <li key={stock.symbol} id="stock-list">
+              <Link to={`/stock/${stock.symbol}`}><h5>{stock.companyName} ({stock.symbol})</h5>
+              </Link>
             </li>
           )
         })}

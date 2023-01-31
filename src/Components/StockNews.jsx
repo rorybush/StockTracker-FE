@@ -30,26 +30,30 @@ const StockNews = () => {
   if(isLoading) return <p>Loading...</p>
 
   return (
-    <Container maxWidth="md" sx={{ padding: "35px 20px", width: 320 }}>
+    <Container sx={{ padding: "0px 20px", width: 500 }}>
       <Grid container spacing={0.5}>
+        {<p style={{color:"#0288D1"}}>Latest news</p>}
         {stockNews.length > 0 && stockNews.map((news) => (
-          <Grid item key={news.uuid}>
-            <Card sx={{ display: "flex" }}>
+          <Grid item key={news.uuid} xs={12}>
+            <Card sx={{ display: "flex", mr:2 }}>
+            <CardActionArea href={news.link} target="_blank">
               <CardContent
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  width:320
+                  width: 500
                 }}
               >
+                
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
                     height: 40,
-                    width: 320,
+                    width: 330,
                   }}
                 >
+                  
                   <Stack
                     sx={{
                       display: "flex",
@@ -58,19 +62,19 @@ const StockNews = () => {
                       mr: 1,
                     }}
                   >
-                    <Typography sx={{fontSize:9}} color="text.secondary">
+                    <Typography sx={{fontSize:11}} color="text.secondary">
                       {news.publisher}
                     </Typography>
-                    <Typography sx={{fontSize:8}} color="text.secondary">
+                    <Typography sx={{fontSize:10}} color="text.secondary">
                       {moment(news.providerPublishTime * 1000).fromNow()}
                     </Typography>
                   </Stack>
-                  <Typography sx={{fontSize:10}}>{news.title}</Typography>
-                  <CardActionArea href={news.link} target="_blank">
-                    <Typography sx={{fontSize:8}} color="text.secondary">
+                  <Typography sx={{fontSize:12}}>{news.title}</Typography>
+                  
+                    <Typography sx={{fontSize:10}} color="text.secondary">
                       Link to news article
                     </Typography>
-                  </CardActionArea>
+                  
                 </Box>
                 {news.hasOwnProperty("thumbnail") ? (
                   <CardMedia
@@ -99,7 +103,9 @@ const StockNews = () => {
                     }}
                   />
                 )}
+                
               </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}

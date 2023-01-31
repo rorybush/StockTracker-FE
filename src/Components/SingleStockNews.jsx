@@ -54,6 +54,7 @@ const SingleStockNews = ({symbol}) => {
                     width: 320,
                   }}
                 >
+                   <CardActionArea href={news.link} target="_blank">
                   <Stack
                     sx={{
                       display: "flex",
@@ -62,6 +63,7 @@ const SingleStockNews = ({symbol}) => {
                       mr: 1,
                     }}
                   >
+                   
                     <Typography sx={{fontSize:9}} color="text.secondary">
                       {news.publisher}
                     </Typography>
@@ -70,7 +72,7 @@ const SingleStockNews = ({symbol}) => {
                     </Typography>
                   </Stack>
                   <Typography sx={{fontSize:10}}>{news.title}</Typography>
-                  <CardActionArea href={news.link} target="_blank">
+                  
                     <Typography sx={{fontSize:8}} color="text.secondary">
                       Link to news article
                     </Typography>

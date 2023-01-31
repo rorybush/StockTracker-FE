@@ -1,9 +1,17 @@
+* {
+  text-decoration: none;
+}
+
 .negative-price {
   color: red;
 }
 
 .positive-price {
   color: green;
+}
+
+.ticker-price {
+  color: #0288D1
 }
 
 .upcoming-event {

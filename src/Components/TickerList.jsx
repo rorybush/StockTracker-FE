@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const TickerList = () => {
   const fixPrice = (price) => {
     if (price) {
-      return price.toFixed(3);
+      return price.toFixed(2);
     } else {
       return price;
     }
@@ -54,6 +54,7 @@ const TickerList = () => {
   ];
 
   const [prices, setPrices] = useState({});
+  const [previous, setPrevious] = useState(null);
 
   useEffect(() => {
     getTickerPrice(tickerArray).then((response) => {
@@ -62,6 +63,7 @@ const TickerList = () => {
 
     const interval = setInterval(() => {
       getTickerPrice(tickerArray).then((response) => {
+        setPrevious(prices);
         setPrices(response);
       });
     }, 10000);
@@ -69,12 +71,15 @@ const TickerList = () => {
   }, [prices]);
 
   return (
-    <Typography component="div" variant="body2" className={classes.ticker}>
+    <Typography
+      component="div"
+      variant="body2"
+      color="info"
+      className={classes.ticker}
+    >
       {tickerArray.map((ticker) => (
         <div className="Ticker" key={ticker} style={{ marginRight: "20px" }}>
-          <h2 className="ticker-price">{`${ticker} ${fixPrice(
-            prices[ticker]
-          )}`}</h2>
+          <h2 className="ticker-price">{`${ticker} ${fixPrice(prices[ticker])}`}</h2>
         </div>
       ))}
     </Typography>
