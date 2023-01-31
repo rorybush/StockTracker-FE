@@ -9,16 +9,30 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import {Link} from 'react-router-dom'
+
+const getNumberUnit = function(num, round = 2) {
+  const unit = Math.floor(Math.round(num / 1.0e+1).toLocaleString().replaceAll(',', '').length),
+      wunit = ["Thousand","Million","Billion","Trillion","Quadrillion","Quintillion","Sextillion","Septillion","Octillion","Nonillion","Decillion","Undecillion","Duodecillion","Tredecillion","Quattuordecillion","Quindecillion","Sexdecillion","Septemdecillion","Octodecillion","Novemdecillion","Vigintillion","Unvigintillion","Duovigintillion","Trevigintillion","Quattuorvigintillion","Quinvigintillion","Sexvigintillion","Septvigintillion","Octovigintillion","Nonvigintillion","Trigintillion","Untrigintillion","Duotrigintillion"][Math.floor(unit / 3) - 1],
+      funit = Math.abs(Number(num))/Number('1.0e+'+(unit-unit%3));
+  return wunit ? funit.toFixed(round).toLocaleString() + ' ' + wunit : num.toFixed(round).toString();
+}
 
 const AboutSection = ({ symbol }) => {
+  console.log(symbol, "SYMBOL")
   const [stock, setStock] = useState({});
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    setIsLoading(true)
     api.getSingleStock(symbol).then((stockData) => {
+      console.log(stockData, "About")
       setStock(stockData);
+      setIsLoading(false)
     });
   }, []);
+
+  if(isLoading) return <p>Loading...</p>
+
   return (
     <Container spacing={2}>
       <Box
@@ -46,31 +60,31 @@ const AboutSection = ({ symbol }) => {
             </ImageList>
           </ListItem>
           <ListItem divider disableGutters>
-            <ListItemText>PREVIOUS CLOSE</ListItemText>
+            <ListItemText sx={{fontSize:5}}>PREVIOUS CLOSE</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              {stock.previousClose}
+              {stock.previousClose.toFixed(2)}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
             <ListItemText>DAY RANGE</ListItemText>
             <ListItemText inset sx={{ textAlign: "right" }}>
-              {Math.round((stock.dayLow + Number.EPSILON) * 100) / 100}
+              ${Math.round((stock.dayLow + Number.EPSILON) * 100) / 100}
               {" - "}
-              {Math.round((stock.dayHigh + Number.EPSILON) * 100) / 100}
+              ${Math.round((stock.dayHigh + Number.EPSILON) * 100) / 100}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
             <ListItemText>YEAR RANGE</ListItemText>
             <ListItemText inset sx={{ textAlign: "right" }}>
-              {Math.round((stock.yearLow + Number.EPSILON) * 100) / 100}
+              ${Math.round((stock.yearLow + Number.EPSILON) * 100) / 100}
               {" - "}
-              {Math.round((stock.yearHigh + Number.EPSILON) * 100) / 100}
+              ${Math.round((stock.yearHigh + Number.EPSILON) * 100) / 100}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
             <ListItemText>MARKET CAP</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              {stock.marketCap}
+              ${getNumberUnit(stock.marketCap)}
             </ListItemText>
           </ListItem>
         </List>
@@ -115,7 +129,7 @@ const AboutSection = ({ symbol }) => {
           <ListItem divider disableGutters>
             <ListItemText>Website</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              <Link component="a" href={stock.website} target="_blank">{stock.website}</Link>
+              <a href={stock.website} target="_blank">{stock.website}</a>
             </ListItemText>
           </ListItem>
         </List>
