@@ -8,6 +8,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  CircularProgress
 } from "@mui/material";
 
 const getNumberUnit = function(num, round = 2) {
@@ -31,7 +32,9 @@ const AboutSection = ({ symbol }) => {
     });
   }, []);
 
-  if(isLoading) return <p>Loading...</p>
+  if(isLoading) return <Box sx={{ display: "flex", justifyContent: "center" }}>
+  <CircularProgress />
+</Box>
 
   return (
     <Container spacing={2}>
@@ -62,7 +65,7 @@ const AboutSection = ({ symbol }) => {
           <ListItem divider disableGutters>
             <ListItemText sx={{fontSize:5}}>PREVIOUS CLOSE</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              {stock.previousClose.toFixed(2)}
+              ${stock.previousClose.toFixed(2)}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
