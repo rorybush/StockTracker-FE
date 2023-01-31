@@ -16,7 +16,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../utils/firebase";
-import { ref, set, child } from "firebase/database";
+import { ref, child, update } from "firebase/database";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
 // Password validation regx
@@ -71,7 +71,7 @@ const Signup = () => {
         const user = userCredential.user;
         navigate('/')
         console.log(user, "SIGN UP USER");
-        set(child(ref(db), "users-db"), {
+        update(child(ref(db), "users-db"), {
           "user-id": user.uid,
           username: username,
           email: email,

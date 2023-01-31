@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://backend-stock.onrender.com/",
+  baseURL: "https://stock-backend-nlko.onrender.com/",
 });
 
 export const getPortfolioStocks = (uid) => {
