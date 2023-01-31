@@ -160,15 +160,17 @@ const Navv = () => {
           <Button variant="text" color="inherit" size="large" component={Link} to={'/news'}>
             NEWS
           </Button>
+          {authUser ? "" :
           <Button
-            variant="outlined"
-            color="inherit"
-            size="medium"
-            component={Link}
-            to={"/signup"}
-          >
-            Signup
-          </Button>
+          variant="outlined"
+          color="inherit"
+          size="medium"
+          component={Link}
+          to={"/signup"}
+        >
+          Signup
+        </Button> }
+          
           <Avatar
             sx={{ width: 30, height: 30 }}
             onClick={(e) => setOpen(true)}
