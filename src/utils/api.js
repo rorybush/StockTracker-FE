@@ -24,9 +24,8 @@ export const deletePortfolio = (uid) => {
 };
 
 export const getPortfolioProfitLoss = (uid) => {
-  return fromApi.get(`/api/portfolio/${uid}/pl`).then((res) => {
-    console.log(res);
-    return res.data;
+  return fromApi.get(`/api/portfolio/${uid}/pl`).then(({ data }) => {
+    return data;
   });
 };
 
