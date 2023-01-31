@@ -1,84 +1,101 @@
-//post portfolio
-
-import React from "react";
+import React, {useState} from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
 import "./postPortfolio.css";
 import { Grid, Paper, TextField, Button } from "@mui/material";
 
-function PostPortfolio() {
+
+
+function PostPortfolio({ Portfolio, setPortfolio }) {  
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
   const textStyle = { margin: "10px auto 0px" };
-
   const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
+  const [NewStock, setNewStock] = useState({
+    name: "",
+    date: "",
+    quantity: "",
+    price: "",
+  });
   //   auth.currentUser.uid;
 
   const postNewStock = (e) => {
     e.preventDefault();
-    console.log(e, "BUTTON");
-    const stockName = e.target[0].value;
-    const quantity = e.target[2].value;
-    const price = e.target[4].value;
-    const date = e.target[6].value;
-    api.postPortfolioStock(uid, stockName, date, quantity, price);
+
+    setPortfolio((currStocks) => {
+      return [NewStock, ...currStocks];
+    });
+
+    api.postPortfolioStock(
+      uid,
+      NewStock.name.toUpperCase(),
+      NewStock.date,
+      NewStock.quantity,
+      NewStock.price
+    );
   };
 
   return (
-    <Grid>
-      <Paper elevation={10} sx={paperStyle}>
-        <Grid align="center">
-          {uid && (
-            <form onSubmit={postNewStock}>
-              <TextField
-                fullWidth
-                label="Stock Name"
-                sx={textStyle}
-                type="text"
-                name="stockName"
-                placeholder="Enter a stock name"
-                required
-              ></TextField>
-              <TextField
-                fullWidth
-                label="Quantity"
-                sx={textStyle}
-                type="number"
-                name="quantity"
-                placeholder="Enter quantity"
-                required
-              ></TextField>
-              <TextField
-                fullWidth
-                label="Purhcase price"
-                sx={textStyle}
-                type="number"
-                name="price"
-                placeholder="Enter purchase price"
-                required
-              ></TextField>
-              <TextField
-                fullWidth
-                // label='Purhcase date'
-                sx={textStyle}
-                type="date"
-                name="date"
-                required
-              ></TextField>
-              <Button
-                fullWidth
-                sx={textStyle}
-                type="submit"
-                variant="contained"
-                color="primary"
-              >
-                Save
-              </Button>
-            </form>
-          )}
-        </Grid>
-      </Paper>
-    </Grid>
+    <div>
+      {uid && (
+        <form onSubmit={postNewStock}>
+          <label>Stock Name </label>
+          <input
+            type="text"
+            name="stockName"
+            required
+            onChange={(e) => {
+              setNewStock({
+                ...NewStock,
+                name: e.target.value.toUpperCase(),
+              });
+            }}
+          />
+
+          <label>Quantity </label>
+          <input
+            type="number"
+            name="quantity"
+            required
+            onChange={(e) => {
+              setNewStock({
+                ...NewStock,
+                quantity: e.target.value,
+              });
+            }}
+          />
+
+          <label>Purchase Price </label>
+          <input
+            type="number"
+            step="0.01"
+            name="price"
+            required
+            onChange={(e) => {
+              setNewStock({
+                ...NewStock,
+                price: e.target.value,
+              });
+            }}
+          />
+
+          <label>Purchase Date </label>
+          <input
+            type="date"
+            name="date"
+            required
+            onChange={(e) => {
+              setNewStock({
+                ...NewStock,
+                date: e.target.value,
+              });
+            }}
+          />
+
+          <input type="submit" />
+        </form>
+      )}
+    </div>
   );
 }
 
