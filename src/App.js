@@ -10,6 +10,7 @@ import ShowPortfolio from "./Components/ShowPortfolio";
 import SingleStock from "./Components/SingleStock";
 import TickerList from "./Components/TickerList";
 import News from './Components/News'
+import ForgotPassword from "./Components/ForgotPassword";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>        
         <Route path="/news" element={<News />}></Route>
         <Route path="/stock/:symbol" element={<SingleStock />}></Route>
         <Route path="/stockgraph" element={<StockGraph />}></Route>
