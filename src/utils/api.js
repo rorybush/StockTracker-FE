@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://stock-backend-nlko.onrender.com",
+  baseURL: "https://backend-stock.onrender.com/",
 });
 
 export const getPortfolioStocks = (uid) => {
@@ -21,6 +21,13 @@ export const postPortfolioStock = (uid, stockName, date, quantity, price) => {
 
 export const deletePortfolio = (uid) => {
   return fromApi.delete(`/api/portfolio/${uid}/deleteportfolio`);
+};
+
+export const getPortfolioProfitLoss = (uid) => {
+  return fromApi.get(`/api/portfolio/${uid}/pl`).then((res) => {
+    console.log(res);
+    return res.data;
+  });
 };
 
 export const deleteStock = (uid, stock) => {
@@ -48,7 +55,7 @@ export const getStockList = () => {
 // Fetching list of FTSE
 export const getStockListNasdaq = () => {
   return fromApi.get(`/api/stocklist/nasdaq`).then(({ data }) => {
-    console.log(data, "API")
+    console.log(data, "API");
     return data;
   });
 };
@@ -111,7 +118,6 @@ export const getTickerPrice = (tickers) => {
 
 export const getStockEvents = (ticker) => {
   return fromApi.get(`/api/calendar/${ticker}`).then(({ data }) => {
-    console.log(data, "API")
     return data;
   });
 };
