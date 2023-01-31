@@ -1,16 +1,22 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Container, Stack, Grid } from "@mui/material";
 import React from "react";
 import StocksList from "./StocksList";
 import StockNews from './StockNews'
 
 const Home = () => {
   return (
-    <Box>
-      <Stack direction="row" spacing={3} justifyContent="space-around">
-      <StocksList />
-      <StockNews/>
-      </Stack>
-    </Box>
+    <Container maxWidth="md" sx={{ padding: "35px 20px"}}>
+      <Grid container spacing={2} direction="row">
+        <Grid item xs={12} container>
+          <Grid item xs={12} md={4}>
+            <StocksList/>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <StockNews/>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Container>
     );
   };
   
