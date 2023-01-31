@@ -2,19 +2,32 @@ import React from "react";
 import AboutSection from "./AboutSection";
 import SingleStockNews from "./SingleStockNews";
 import StockGraph from "./StockGraph";
+import Chat from "./Chat";
 import { useParams } from "react-router-dom";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import StockCalendar from "./StockCalendar";
-import './singleStock.css'
+import "./singleStock.css";
+
 const SingleStock = () => {
   const { symbol } = useParams();
 
   return (
     <section className="about-section_container">
-      <div className="graph"><StockGraph/></div>
-      <div className="about"><AboutSection symbol={symbol}/></div>
-      <div className="news"><SingleStockNews symbol={symbol}/></div>
-      <div className="calender"><StockCalendar ticker={symbol}/></div>
+      <div className="graph">
+        <StockGraph />
+      </div>
+      <div className="about">
+        <AboutSection symbol={symbol} />
+      </div>
+      <div className="news">
+        <SingleStockNews symbol={symbol} />
+      </div>
+      <div className="calender">
+        <StockCalendar ticker={symbol} />
+      </div>
+      <div className="chat">
+        <Chat />
+      </div>
     </section>
   );
 };

@@ -15,7 +15,6 @@ import {
   Grid,
   Divider,
 } from "@mui/material";
-import PortfolioProfitLoss from "./PortfolioProfitLoss";
 
 function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
@@ -70,7 +69,6 @@ function ShowPortfolio() {
 
   return (
     <Container maxWidth="lg">
-      <PortfolioProfitLoss />
       <Box
         sx={{
           display: "flex",
