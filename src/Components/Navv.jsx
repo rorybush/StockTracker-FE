@@ -9,8 +9,10 @@ import {
   Button,
   Menu,
   MenuItem,
+  IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { blue } from '@mui/material/colors';
 import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import React, { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -131,9 +133,10 @@ const Navv = () => {
         >
           PyNance
         </Button>
-        <NightsStayOutlinedIcon
-          sx={{ display: { xs: "block", sm: "none" }, mr: 2 }}
-        />
+        <IconButton>
+        <Link to='/'><NightsStayOutlinedIcon 
+          sx={{color: blue[100], display: { xs: "block", sm: "none" }, mr: 2 , fontSize:30}}
+        /></Link></IconButton>
         {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />

@@ -47,7 +47,7 @@ const Login = () => {
           <Avatar></Avatar>
           <Typography>Log In!</Typography>
           <Typography variant="caption" color="textSecondary">
-            Forgot your password?
+           <Link to='/forgotpassword'> Forgot password? </Link>
           </Typography>
           <form>
             <TextField
