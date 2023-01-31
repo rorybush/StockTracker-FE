@@ -88,7 +88,7 @@ const TickerList = () => {
     >
       {tickerArray.map((ticker) => (
         <div className="Ticker" key={ticker} style={{ marginRight: "20px" }}>
-          <h2 className="ticker-price">{`${ticker} ${fixPrice(
+          <h2 className="ticker-price">{`${ticker} $${fixPrice(
             prices[ticker]
           )}`}</h2>
         </div>

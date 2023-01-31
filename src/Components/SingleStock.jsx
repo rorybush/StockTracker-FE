@@ -25,9 +25,6 @@ const SingleStock = () => {
       <div className="calender">
         <StockCalendar ticker={symbol} />
       </div>
-      <div className="chat">
-        {/* <Chat /> */}
-      </div>
     </section>
   );
 };
