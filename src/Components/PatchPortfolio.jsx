@@ -1,10 +1,8 @@
-//patch portfolio
-
 import React, { useState } from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
 
-function PatchPortfolio({ stockName, date, price, quantity }) {
+function PatchPortfolio({ stockName, date, price, quantity, setPortfolio }) {
   const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
@@ -17,14 +15,21 @@ function PatchPortfolio({ stockName, date, price, quantity }) {
   });
 
   const handleEditSubmit = (e) => {
-    console.log(
-      uid,
-      UserEdit.stockName,
-      UserEdit.date,
-      UserEdit.quantity,
-      UserEdit.price
-    );
     e.preventDefault();
+    setPortfolio((curPortfolio) => {
+      return curPortfolio.map((stock) => {
+        if (stock.name === stockName) {
+          return {
+            ...stock,
+            name: UserEdit.stockName,
+            quantity: UserEdit.quantity,
+            price: UserEdit.price,
+            date: UserEdit.date,
+          };
+        }
+        return stock;
+      });
+    });
     api.editStock(
       uid,
       UserEdit.stockName,
@@ -48,6 +53,7 @@ function PatchPortfolio({ stockName, date, price, quantity }) {
               stockName: e.target.value,
             })
           }
+          disabled
         />
 
         <label>Quantity </label>
