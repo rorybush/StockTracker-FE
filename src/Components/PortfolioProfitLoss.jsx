@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
+import { Card, Grid, List, ListItem, Paper, Typography } from "@mui/material";
 
 function PortfolioProfitLoss() {
+  const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
+  const textStyle = { margin: "10px auto 0px" };
+
   const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
@@ -25,16 +29,23 @@ function PortfolioProfitLoss() {
   }, [PortfolioData]);
 
   return (
-    <div>
-      <ul>
+    <Grid sx={{width:300, m:"10px auto"}}>
+      {/* <Paper elevation={10} sx={{paperStyle}}> */}
+      <Card>
+        <Grid align='center'>
+          <Typography variant='h6' >Portfolio Progress</Typography>
+      <List>
         {PortfolioData.map((stock) => (
-          <li key={stock.name}>{`${stock.name}: £${stock.ProfitLoss.toFixed(
+          <ListItem key={stock.name}>{`${stock.name}: £${stock.ProfitLoss.toFixed(
             2
-          )}`}</li>
+          )}`}</ListItem>
         ))}
-        <li>{`Total: £${ProfitLoss.toFixed(2)}`}</li>
-      </ul>
-    </div>
+        <ListItem>{`Total: £${ProfitLoss.toFixed(2)}`}</ListItem>
+      </List>
+      </Grid>
+      </Card>
+      {/* </Paper> */}
+    </Grid>
   );
 }
 
