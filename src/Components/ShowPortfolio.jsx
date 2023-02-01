@@ -71,7 +71,7 @@ function ShowPortfolio() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" className="portfolio">
       <PortfolioProfitLoss />
       <Box
         sx={{

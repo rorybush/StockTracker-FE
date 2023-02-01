@@ -85,12 +85,12 @@ const TickerList = () => {
   const [prices, setPrices] = useState({});
   const [previous, setPrevious] = useState(null);
   const [IsTickerLoading, setIsTickerLoading] = useState(true);
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
     getTickerPrice(tickerArray).then((response) => {
       setIsTickerLoading(false);
       setPrices(response);
-      setPrevious(response);
     });
 
     const interval = setInterval(() => {
@@ -147,7 +147,7 @@ const TickerList = () => {
               }
               style={{ margin: "0px", fontSize: "1.3em" }}
             >
-              {percentageChange(prices[ticker], previous[ticker])} %
+              {percentageChange(prices[ticker], previous[ticker]).toFixed(4)} %
             </p>
           </div>
         ))}
