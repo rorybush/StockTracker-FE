@@ -83,9 +83,8 @@ const TickerList = () => {
   ];
 
   const [prices, setPrices] = useState({});
-  const [previous, setPrevious] = useState(null);
+  const [previous, setPrevious] = useState({});
   const [IsTickerLoading, setIsTickerLoading] = useState(true);
-  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
     getTickerPrice(tickerArray).then((response) => {

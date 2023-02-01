@@ -1,5 +1,14 @@
 * {
   text-decoration: none;
+  font-family: "Roboto Mono", sans-serif;
+}
+
+.portfolio {
+  margin-top: 50px;
+}
+
+.add-investment {
+  margin-top: 20px;
 }
 
 .negative-price {

@@ -72,7 +72,7 @@ function ShowPortfolio() {
 
   return (
     <Container maxWidth="lg" className="portfolio">
-      <PortfolioProfitLoss />
+      <PortfolioProfitLoss className="progress" />
       <Box
         sx={{
           display: "flex",
@@ -80,27 +80,34 @@ function ShowPortfolio() {
           justifyContent: "center",
         }}
       >
+        <Popup
+          trigger={
+            <Button
+              variant="contained"
+              className="add-investment"
+              size="large"
+              style={{ marginTop: "20px" }}
+            >
+              <AddCircleIcon style={{ marginRight: "8px" }} /> Add Investment
+            </Button>
+          }
+          position="right center"
+        >
+          <PostPortfolio setPortfolio={setPortfolio} />
+        </Popup>
         <Stack direction="row" spacing={3} justifyContent="space-around">
           <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Popup
-                trigger={
-                  <Button
-                    variant="contained"
-                    className="add-investment"
-                    size="large"
-                  >
-                    <AddCircleIcon style={{ marginRight: "8px" }} /> Add
-                    Investment
-                  </Button>
-                }
-                position="right center"
+              <Paper
+                elevation={10}
+                sx={paperStyle}
+                style={{
+                  margin: "-10px",
+                  marginTop: "20px",
+                  fontFamily: "Roboto Mono",
+                }}
               >
-                <PostPortfolio setPortfolio={setPortfolio} />
-              </Popup>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
-              <Paper elevation={10} sx={paperStyle}>
                 {Portfolio.map((stock) => {
                   return (
                     <List key={stock.name}>

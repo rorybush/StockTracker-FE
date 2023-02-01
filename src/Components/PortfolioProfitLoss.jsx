@@ -3,6 +3,7 @@ import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
 import { Card, Grid, List, ListItem, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
+import { style } from "d3";
 
 const useStyles = makeStyles(() => ({
   loss: {
@@ -42,12 +43,33 @@ function PortfolioProfitLoss() {
   }, [PortfolioData]);
 
   return (
-    <Grid sx={{ width: 300, m: "10px auto" }}>
+    <Grid
+      sx={{ width: "100%", m: "10px auto" }}
+      style={{
+        fontFamily: "Roboto Mono",
+        fontSize: "1.3em",
+        marginBottom: "25px",
+      }}
+    >
       {/* <Paper elevation={10} sx={{paperStyle}}> */}
-      <Card>
+      <Card elevation={8}>
         <Grid align="center">
-          <Typography variant="h6">Portfolio Progress</Typography>
-          <List>
+          <Typography
+            variant="h6"
+            style={{
+              fontFamily: "Roboto Mono",
+              fontSize: "1.6em",
+              marginTop: "25px",
+            }}
+          >
+            Portfolio Progress
+          </Typography>
+          <List
+            style={{
+              marginLeft: "25px",
+              marginBottom: "25px",
+            }}
+          >
             {PortfolioData.map((stock) => (
               <ListItem key={stock.name}>{`${
                 stock.name
