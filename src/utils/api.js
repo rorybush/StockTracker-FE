@@ -54,7 +54,6 @@ export const getStockList = () => {
 // Fetching list of FTSE
 export const getStockListNasdaq = () => {
   return fromApi.get(`/api/stocklist/nasdaq`).then(({ data }) => {
-    console.log(data, "API");
     return data;
   });
 };
@@ -64,16 +63,6 @@ export const fetchStockData = (symbol) => {
     return data.stock;
   });
 };
-
-// export const signUp = () => {
-//   return formApi
-//   .post('/sign-up', {
-
-//   })
-//   .then((response) => {
-//     console.log(response, "API")
-//   })
-// }
 
 // List of all news
 export const getStockNews = () => {
@@ -85,14 +74,12 @@ export const getStockNews = () => {
 // List of specific news
 export const getSingleStockNews = (symbol) => {
   return fromApi.get(`/api/news/${symbol}`).then((response) => {
-    console.log(response, "API SINGLE STOCK NEWS");
     return response.data;
   });
 };
 
 export const getSingleStock = (stock) => {
   return fromApi.get(`/api/stockdata/${stock}`).then((response) => {
-    console.log(response);
     return response.data;
   });
 };

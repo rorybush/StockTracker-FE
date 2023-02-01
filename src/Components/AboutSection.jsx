@@ -8,33 +8,74 @@ import {
   List,
   ListItem,
   ListItemText,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 
-const getNumberUnit = function(num, round = 2) {
-  const unit = Math.floor(Math.round(num / 1.0e+1).toLocaleString().replaceAll(',', '').length),
-      wunit = ["Thousand","Million","Billion","Trillion","Quadrillion","Quintillion","Sextillion","Septillion","Octillion","Nonillion","Decillion","Undecillion","Duodecillion","Tredecillion","Quattuordecillion","Quindecillion","Sexdecillion","Septemdecillion","Octodecillion","Novemdecillion","Vigintillion","Unvigintillion","Duovigintillion","Trevigintillion","Quattuorvigintillion","Quinvigintillion","Sexvigintillion","Septvigintillion","Octovigintillion","Nonvigintillion","Trigintillion","Untrigintillion","Duotrigintillion"][Math.floor(unit / 3) - 1],
-      funit = Math.abs(Number(num))/Number('1.0e+'+(unit-unit%3));
-  return wunit ? funit.toFixed(round).toLocaleString() + ' ' + wunit : num.toFixed(round).toString();
-}
+const getNumberUnit = function (num, round = 2) {
+  const unit = Math.floor(
+      Math.round(num / 1.0e1)
+        .toLocaleString()
+        .replaceAll(",", "").length
+    ),
+    wunit = [
+      "Thousand",
+      "Million",
+      "Billion",
+      "Trillion",
+      "Quadrillion",
+      "Quintillion",
+      "Sextillion",
+      "Septillion",
+      "Octillion",
+      "Nonillion",
+      "Decillion",
+      "Undecillion",
+      "Duodecillion",
+      "Tredecillion",
+      "Quattuordecillion",
+      "Quindecillion",
+      "Sexdecillion",
+      "Septemdecillion",
+      "Octodecillion",
+      "Novemdecillion",
+      "Vigintillion",
+      "Unvigintillion",
+      "Duovigintillion",
+      "Trevigintillion",
+      "Quattuorvigintillion",
+      "Quinvigintillion",
+      "Sexvigintillion",
+      "Septvigintillion",
+      "Octovigintillion",
+      "Nonvigintillion",
+      "Trigintillion",
+      "Untrigintillion",
+      "Duotrigintillion",
+    ][Math.floor(unit / 3) - 1],
+    funit = Math.abs(Number(num)) / Number("1.0e+" + (unit - (unit % 3)));
+  return wunit
+    ? funit.toFixed(round).toLocaleString() + " " + wunit
+    : num.toFixed(round).toString();
+};
 
 const AboutSection = ({ symbol }) => {
-  console.log(symbol, "SYMBOL")
   const [stock, setStock] = useState({});
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     api.getSingleStock(symbol).then((stockData) => {
-      console.log(stockData, "About")
       setStock(stockData);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, []);
 
-  if(isLoading) return <Box sx={{ display: "flex", justifyContent: "center" }}>
-  <CircularProgress />
-</Box>
+  if (isLoading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
 
   return (
     <Container spacing={2}>
@@ -58,12 +99,12 @@ const AboutSection = ({ symbol }) => {
             <ListItemText>{stock.companyName}</ListItemText>
             <ImageList sx={{ width: 70, height: 35, textAlign: "right" }}>
               <ImageListItem>
-                <img src={stock.logo} alt='Company Logo'/>
+                <img src={stock.logo} alt="Company Logo" />
               </ImageListItem>
             </ImageList>
           </ListItem>
           <ListItem divider disableGutters>
-            <ListItemText sx={{fontSize:5}}>PREVIOUS CLOSE</ListItemText>
+            <ListItemText sx={{ fontSize: 5 }}>PREVIOUS CLOSE</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
               ${stock.previousClose.toFixed(2)}
             </ListItemText>
@@ -72,16 +113,15 @@ const AboutSection = ({ symbol }) => {
             <ListItemText>DAY RANGE</ListItemText>
             <ListItemText inset sx={{ textAlign: "right" }}>
               ${Math.round((stock.dayLow + Number.EPSILON) * 100) / 100}
-              {" - "}
-              ${Math.round((stock.dayHigh + Number.EPSILON) * 100) / 100}
+              {" - "}${Math.round((stock.dayHigh + Number.EPSILON) * 100) / 100}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
             <ListItemText>YEAR RANGE</ListItemText>
             <ListItemText inset sx={{ textAlign: "right" }}>
               ${Math.round((stock.yearLow + Number.EPSILON) * 100) / 100}
-              {" - "}
-              ${Math.round((stock.yearHigh + Number.EPSILON) * 100) / 100}
+              {" - "}$
+              {Math.round((stock.yearHigh + Number.EPSILON) * 100) / 100}
             </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
@@ -132,7 +172,9 @@ const AboutSection = ({ symbol }) => {
           <ListItem divider disableGutters>
             <ListItemText>Website</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              <a href={stock.website} target="_blank">{stock.website}</a>
+              <a href={stock.website} target="_blank">
+                {stock.website}
+              </a>
             </ListItemText>
           </ListItem>
         </List>

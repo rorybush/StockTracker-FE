@@ -10,24 +10,29 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import moment from "moment";
 
 const SingleStockNews = ({ symbol }) => {
   const [singleStockNews, setSingleStockNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [StockNewsError, setStockNewsError] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
     api
       .getSingleStockNews(symbol)
       .then((data) => {
-        setSingleStockNews(data);
+        if (Array.isArray(data) && data.length >= 1) {
+          setSingleStockNews(data);
+        } else if (typeof data === "string") {
+          setStockNewsError(data);
+        }
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setStockNewsError(err);
       });
   }, []);
 
@@ -53,6 +58,9 @@ const SingleStockNews = ({ symbol }) => {
           singleStockNews.map((news) => (
             <Grid item key={news.uuid}>
               <Card sx={{ display: "flex" }}>
+                {!(
+                  Array.isArray(singleStockNews) && singleStockNews.length >= 1
+                ) && <p>{StockNewsError}</p>}
                 <CardActionArea href={news.link} target="_blank">
                   <CardContent
                     sx={{

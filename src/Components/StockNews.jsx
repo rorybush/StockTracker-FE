@@ -19,8 +19,6 @@ const StockNews = () => {
   const [IsStockNewsLoading, setIsStockNewsLoading] = useState(false);
   const [StockNewsError, setStockNewsError] = useState("");
 
-  console.log(stockNews);
-
   useEffect(() => {
     setIsStockNewsLoading(true);
     api
