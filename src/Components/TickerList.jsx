@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
   tickerContainer: {
     width: "100%",
     overflow: "hidden",
-    background: "black",
+    background: "#F2F2F2",
+    borderBottom: "1px solid grey",
   },
   ticker: {
     display: "flex",

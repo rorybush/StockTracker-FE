@@ -3,6 +3,8 @@ import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
 import PostPortfolio from "./PostPortfolio";
 import PatchPortfolio from "./PatchPortfolio";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Popup from "reactjs-popup";
 import {
   Box,
   Stack,
@@ -81,7 +83,21 @@ function ShowPortfolio() {
         <Stack direction="row" spacing={3} justifyContent="space-around">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}>
-              <PostPortfolio setPortfolio={setPortfolio} />
+              <Popup
+                trigger={
+                  <Button
+                    variant="contained"
+                    className="add-investment"
+                    size="large"
+                  >
+                    <AddCircleIcon style={{ marginRight: "8px" }} /> Add
+                    Investment
+                  </Button>
+                }
+                position="right center"
+              >
+                <PostPortfolio setPortfolio={setPortfolio} />
+              </Popup>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <Paper elevation={10} sx={paperStyle}>

@@ -5,14 +5,14 @@
 .negative-price {
   margin-top: 5px;
   font-size: 20px;
-  color: red;
+  color: rgb(145, 7, 7);
 }
 
 .positive-price {
   font-family: "Roboto Mono", sans-serif;
   margin-top: 5px;
   font-size: 20px;
-  color: green;
+  color: rgb(106, 151, 32);
 }
 
 .ticker-price {
