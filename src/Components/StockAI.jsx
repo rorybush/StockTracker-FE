@@ -28,15 +28,16 @@ function StockAI({ stock }) {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>
+              Current Stock Price: ${stock.latestPrice.toFixed(2)}
+            </TableCell>
+          </TableRow>
+          <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Prediction</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell>Today</TableCell>
-            <TableCell>${stock.latestPrice.toFixed(2)}</TableCell>
-          </TableRow>
           {StockAI.map((prediction) => (
             <TableRow key={prediction.date}>
               <TableCell>
