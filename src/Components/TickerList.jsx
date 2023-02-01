@@ -1,6 +1,6 @@
 import { Typography, LinearProgress, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { getTickerPrice } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const TickerList = () => {
   const classes = useStyles();
+
   const fixPrice = (price) => {
     if (price) {
       return price.toFixed(2);
@@ -42,6 +43,11 @@ const TickerList = () => {
       return price;
     }
   };
+
+  const percentageChange = (n1, n2) => {
+    return (n1 - n2) / ((n1 + n2) / 2);
+  };
+
   const tickerArray = [
     "AAPL",
     "TSLA",
@@ -117,7 +123,21 @@ const TickerList = () => {
             key={`${ticker}${i}`}
             style={{ padding: "10px", borderRight: "1px solid grey" }}
           >
-            <h2
+            <h2 className="ticker">
+              {ticker}
+              <span
+                className={
+                  previous[ticker]
+                    ? previous[ticker] <= prices[ticker]
+                      ? "positive-price"
+                      : "negative-price"
+                    : "ticker-price"
+                }
+              >
+                {fixPrice(prices[ticker])}
+              </span>
+            </h2>
+            <p
               className={
                 previous[ticker]
                   ? previous[ticker] <= prices[ticker]
@@ -125,7 +145,10 @@ const TickerList = () => {
                     : "negative-price"
                   : "ticker-price"
               }
-            >{`${ticker} ${fixPrice(prices[ticker])}`}</h2>
+              style={{ margin: "0px", fontSize: "1.3em" }}
+            >
+              {percentageChange(prices[ticker], previous[ticker])} %
+            </p>
           </div>
         ))}
       </Typography>
