@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AboutSection from "./AboutSection";
 import SingleStockNews from "./SingleStockNews";
 import StockGraph from "./StockGraph";
@@ -8,18 +8,32 @@ import { Box, Container, Grid, Stack } from "@mui/material";
 import StockCalendar from "./StockCalendar";
 import "./singleStock.css";
 import StockAI from "./StockAI";
+import * as api from "../utils/api";
 
 const SingleStock = () => {
   const { symbol } = useParams();
+  const [stock, setStock] = useState({});
+  const [isAboutLoading, setIsAboutLoading] = useState(true);
 
+  useEffect(() => {
+    setIsAboutLoading(true);
+    api.getSingleStock(symbol).then((stockData) => {
+      setStock(stockData);
+      setIsAboutLoading(false);
+    });
+  }, []);
   return (
     <section className="about-section_container">
-      <StockAI />
+      <StockAI stock={stock} />
       <div className="graph">
         <StockGraph />
       </div>
       <div className="about">
-        <AboutSection symbol={symbol} />
+        <AboutSection
+          symbol={symbol}
+          stock={stock}
+          isAboutLoading={isAboutLoading}
+        />
       </div>
       <div className="news">
         <SingleStockNews symbol={symbol} />

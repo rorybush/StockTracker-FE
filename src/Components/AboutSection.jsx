@@ -58,19 +58,19 @@ const getNumberUnit = function (num, round = 2) {
     : num.toFixed(round).toString();
 };
 
-const AboutSection = ({ symbol }) => {
-  const [stock, setStock] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+const AboutSection = ({ symbol, stock, isAboutLoading }) => {
+  // const [stock, setStock] = useState({});
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setIsLoading(true);
-    api.getSingleStock(symbol).then((stockData) => {
-      setStock(stockData);
-      setIsLoading(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   api.getSingleStock(symbol).then((stockData) => {
+  //     setStock(stockData);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
 
-  if (isLoading)
+  if (isAboutLoading)
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CircularProgress />
@@ -102,6 +102,12 @@ const AboutSection = ({ symbol }) => {
                 <img src={stock.logo} alt="Company Logo" />
               </ImageListItem>
             </ImageList>
+          </ListItem>
+          <ListItem divider disableGutters>
+            <ListItemText sx={{ fontSize: 5 }}>Latest Price</ListItemText>
+            <ListItemText sx={{ textAlign: "right" }}>
+              ${stock.latestPrice.toFixed(2)}
+            </ListItemText>
           </ListItem>
           <ListItem divider disableGutters>
             <ListItemText sx={{ fontSize: 5 }}>PREVIOUS CLOSE</ListItemText>
