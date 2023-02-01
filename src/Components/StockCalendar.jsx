@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { getStockEvents } from "../utils/api";
 import moment from "moment";
-import { easeBack } from "d3";
 
-const StockCalendar = ({ticker}) => {
-  
+const StockCalendar = ({ ticker }) => {
   const [calendar, setCalendar] = useState([]);
   useEffect(() => {
-
     getStockEvents(ticker).then((response) => {
       const eventsArr = response.map((arr) => {
         return arr[2];

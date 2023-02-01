@@ -12,10 +12,9 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { blue } from '@mui/material/colors';
+import { blue } from "@mui/material/colors";
 import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import React, { useState, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -134,9 +133,17 @@ const Navv = () => {
           PyNance
         </Button>
         <IconButton>
-        <Link to='/'><NightsStayOutlinedIcon 
-          sx={{color: blue[100], display: { xs: "block", sm: "none" }, mr: 2 , fontSize:30}}
-        /></Link></IconButton>
+          <Link to="/">
+            <NightsStayOutlinedIcon
+              sx={{
+                color: blue[100],
+                display: { xs: "block", sm: "none" },
+                mr: 2,
+                fontSize: 30,
+              }}
+            />
+          </Link>
+        </IconButton>
         {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />
@@ -157,23 +164,38 @@ const Navv = () => {
           >
             HOME
           </Button>
-          <Button variant="text" color="inherit" size="large" component={Link} to={'/portfolio'}>
+          <Button
+            variant="text"
+            color="inherit"
+            size="large"
+            component={Link}
+            to={"/portfolio"}
+          >
             PORTFOLIO
           </Button>
-          <Button variant="text" color="inherit" size="large" component={Link} to={'/news'}>
+          <Button
+            variant="text"
+            color="inherit"
+            size="large"
+            component={Link}
+            to={"/news"}
+          >
             NEWS
           </Button>
-          {authUser ? "" :
-          <Button
-          variant="outlined"
-          color="inherit"
-          size="medium"
-          component={Link}
-          to={"/signup"}
-        >
-          Signup
-        </Button> }
-          
+          {authUser ? (
+            ""
+          ) : (
+            <Button
+              variant="outlined"
+              color="inherit"
+              size="medium"
+              component={Link}
+              to={"/signup"}
+            >
+              Signup
+            </Button>
+          )}
+
           <Avatar
             sx={{ width: 30, height: 30 }}
             onClick={(e) => setOpen(true)}
@@ -206,9 +228,12 @@ const Navv = () => {
             </Link>
           </MenuItem>
         )}
-        <MenuItem> <Link to="/portfolio" color="secondary" underline="none">
-              Portfolio
-            </Link></MenuItem>
+        <MenuItem>
+          {" "}
+          <Link to="/portfolio" color="secondary" underline="none">
+            Portfolio
+          </Link>
+        </MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </AppBar>

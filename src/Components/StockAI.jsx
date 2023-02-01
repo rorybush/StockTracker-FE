@@ -28,9 +28,7 @@ function StockAI({ stock }) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>
-              Current Stock Price: ${stock.latestPrice.toFixed(2)}
-            </TableCell>
+            <TableCell>Current Stock Price: ${stock.latestPrice}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Date</TableCell>

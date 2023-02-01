@@ -1,5 +1,3 @@
-//searchbar
-
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import SearchIcon from "@mui/icons-material/Search";

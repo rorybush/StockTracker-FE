@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
-import { Card, Grid, List, ListItem, Paper, Typography } from "@mui/material";
+import { Card, Grid, List, ListItem, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import { style } from "d3";
 
 const useStyles = makeStyles(() => ({
   loss: {

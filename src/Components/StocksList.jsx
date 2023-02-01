@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as api from "../utils/api";
 import { Link } from "react-router-dom";
-import {
-  Box,
-  CircularProgress,
-  Card,
-  CardContent,
-  useTheme,
-} from "@mui/material";
+import { Box, CircularProgress, Card, useTheme } from "@mui/material";
 import { useMediaQuery } from "@material-ui/core";
 import "./stocksList.css";
 
