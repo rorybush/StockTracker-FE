@@ -7,12 +7,14 @@ import { useParams } from "react-router-dom";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import StockCalendar from "./StockCalendar";
 import "./singleStock.css";
+import StockAI from "./StockAI";
 
 const SingleStock = () => {
   const { symbol } = useParams();
 
   return (
     <section className="about-section_container">
+      <StockAI />
       <div className="graph">
         <StockGraph />
       </div>
