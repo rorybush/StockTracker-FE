@@ -20,6 +20,7 @@ const SingleStock = () => {
       setIsAboutLoading(false);
     });
   }, []);
+
   return (
     <section className="about-section_container">
       <StockAI stock={stock} />

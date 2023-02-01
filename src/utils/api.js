@@ -58,8 +58,8 @@ export const getStockListNasdaq = () => {
   });
 };
 
-export const fetchStockData = (symbol) => {
-  return fromApi.get(`/stock/${symbol}`).then(({ data }) => {
+export const fetchStockData = (symbol, time) => {
+  return fromApi.get(`/stock/${symbol}?time=${time}`).then(({ data }) => {
     return data.stock;
   });
 };
