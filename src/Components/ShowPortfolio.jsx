@@ -95,35 +95,51 @@ function ShowPortfolio() {
         >
           <PostPortfolio setPortfolio={setPortfolio} />
         </Popup>
+        <Button
+          onClick={deletePortfolio}
+          variant="outlined"
+          size="large"
+          color="error"
+          sx={{ width: "100%", m: "20px auto 20px" }}
+        >
+          DELETE PORTFOLIO
+        </Button>
         <Stack direction="row" spacing={3} justifyContent="space-around">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
               <Paper
                 elevation={10}
                 sx={paperStyle}
                 style={{
                   margin: "-10px",
                   marginTop: "20px",
-                  fontFamily: "Roboto Mono",
+                  width: "100%",
+                  marginBottom: "25px",
                 }}
               >
                 {Portfolio.map((stock) => {
                   return (
                     <List key={stock.name}>
                       <ListItem disableGutters>
-                        <ListItemText>
+                        <ListItemText disableTypography>
                           Name: {stock.name.toUpperCase()}
                         </ListItemText>
                       </ListItem>
                       <ListItem disableGutters>
-                        <ListItemText>Date: {stock.date}</ListItemText>
+                        <ListItemText disableTypography>
+                          Date: {stock.date}
+                        </ListItemText>
                       </ListItem>
                       <ListItem disableGutters>
-                        <ListItemText>Price: £{stock.price}</ListItemText>
+                        <ListItemText disableTypography>
+                          Price: £{stock.price}
+                        </ListItemText>
                       </ListItem>
                       <ListItem disableGutters>
-                        <ListItemText>Quantity: {stock.quantity}</ListItemText>
+                        <ListItemText disableTypography>
+                          Quantity: {stock.quantity}
+                        </ListItemText>
                       </ListItem>
                       <ListItem disableGutters>
                         <Button
@@ -160,14 +176,6 @@ function ShowPortfolio() {
             </Grid>
           </Grid>
         </Stack>
-        <Button
-          onClick={deletePortfolio}
-          variant="outlined"
-          color="info"
-          sx={{ width: 250, m: "0px auto 20px" }}
-        >
-          DELETE PORTFOLIO
-        </Button>
       </Box>
     </Container>
   );
