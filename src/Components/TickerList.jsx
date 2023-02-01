@@ -1,22 +1,30 @@
 import { Typography, LinearProgress, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getTickerPrice } from "../utils/api";
 
 const useStyles = makeStyles((theme) => ({
+  tickerContainer: {
+    width: "100%",
+    overflow: "hidden",
+    background: "black",
+  },
   ticker: {
     display: "flex",
     justifyContent: "space-between",
-    overflowX: "auto",
     whiteSpace: "nowrap",
-    animation: "$scroll 60s linear infinite",
+    animation: "$scroll 30s linear infinite",
+    "&:hover": {
+      animationPlayState: "paused",
+    },
   },
+
   "@keyframes scroll": {
     "0%": {
-      transform: "translateX(100%)",
+      transform: "translate(0%)",
     },
     "100%": {
-      transform: "translateX(-100%)",
+      transform: `translate(-100%, 0)`,
     },
   },
   tickerItem: {
@@ -24,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
 }));
-
 const TickerList = () => {
+  const classes = useStyles();
   const fixPrice = (price) => {
     if (price) {
       return price.toFixed(2);
@@ -33,7 +41,6 @@ const TickerList = () => {
       return price;
     }
   };
-  const classes = useStyles();
   const tickerArray = [
     "AAPL",
     "TSLA",
@@ -51,6 +58,21 @@ const TickerList = () => {
     "BHP",
     "AZN",
     "UL",
+    "AAPL",
+    "TSLA",
+    "MSFT",
+    "AMZN",
+    "META",
+    "GOOG",
+    "BABA",
+    "GM",
+    "F",
+    "WMT",
+    "JPM",
+    "HSBC",
+    "GSK",
+    "BHP",
+    "AZN",
   ];
 
   const [prices, setPrices] = useState({});
@@ -61,6 +83,7 @@ const TickerList = () => {
     getTickerPrice(tickerArray).then((response) => {
       setIsTickerLoading(false);
       setPrices(response);
+      setPrevious(response);
     });
 
     const interval = setInterval(() => {
@@ -70,30 +93,42 @@ const TickerList = () => {
       });
     }, 10000);
     return () => clearInterval(interval);
-  }, [prices]);
+  }, [prices, previous]);
 
   if (IsTickerLoading)
     return (
-      <Box sx={{ width: '70%', m:"20px auto 50px"}}>
-        <LinearProgress color="info"/>
+      <Box sx={{ width: "70%", m: "20px auto 50px" }}>
+        <LinearProgress color="info" />
       </Box>
     );
 
   return (
-    <Typography
-      component="div"
-      variant="body2"
-      color="info"
-      className={classes.ticker}
-    >
-      {tickerArray.map((ticker) => (
-        <div className="Ticker" key={ticker} style={{ marginRight: "20px" }}>
-          <h2 className="ticker-price">{`${ticker} $${fixPrice(
-            prices[ticker]
-          )}`}</h2>
-        </div>
-      ))}
-    </Typography>
+    <div className={classes.tickerContainer}>
+      <Typography
+        component="div"
+        variant="body2"
+        color="info"
+        className={classes.ticker}
+      >
+        {tickerArray.map((ticker, i) => (
+          <div
+            className="Ticker"
+            key={`${ticker}${i}`}
+            style={{ padding: "10px", borderRight: "1px solid grey" }}
+          >
+            <h2
+              className={
+                previous[ticker]
+                  ? previous[ticker] <= prices[ticker]
+                    ? "positive-price"
+                    : "negative-price"
+                  : "ticker-price"
+              }
+            >{`${ticker} ${fixPrice(prices[ticker])}`}</h2>
+          </div>
+        ))}
+      </Typography>
+    </div>
   );
 };
 
