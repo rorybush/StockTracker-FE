@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "http://127.0.0.1:5000/",
+  baseURL: "https://sea-turtle-app-xc9w8.ondigitalocean.app/",
 });
 
 export const getPortfolioStocks = (uid) => {
@@ -44,14 +44,12 @@ export const editStock = (uid, stockName, date, quantity, price) => {
   });
 };
 
-// Fetching list of stocks
 export const getStockList = () => {
   return fromApi.get(`/api/stocklist`).then(({ data }) => {
     return data;
   });
 };
 
-// Fetching list of FTSE
 export const getStockListNasdaq = () => {
   return fromApi.get(`/api/stocklist/nasdaq`).then(({ data }) => {
     return data;
@@ -64,14 +62,12 @@ export const fetchStockData = (symbol, time) => {
   });
 };
 
-// List of all news
 export const getStockNews = () => {
   return fromApi.get("/api/news").then((response) => {
     return response.data;
   });
 };
 
-// List of specific news
 export const getSingleStockNews = (symbol) => {
   return fromApi.get(`/api/news/${symbol}`).then((response) => {
     return response.data;
