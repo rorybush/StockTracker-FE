@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
 import PostPortfolio from "./PostPortfolio";
 import PatchPortfolio from "./PatchPortfolio";
@@ -16,13 +16,14 @@ import {
   Container,
   Grid,
   Divider,
+  CircularProgress
 } from "@mui/material";
 import PortfolioProfitLoss from "./PortfolioProfitLoss";
 
 function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
 
-  const auth = getAuth();
+  // const auth = getAuth();
   const uid = "498jsaodfjadslfjakldfkjal";
   //   auth.currentUser.uid;
   const [Portfolio, setPortfolio] = useState([]);
@@ -69,6 +70,15 @@ function ShowPortfolio() {
       [stockName]: !curValue[stockName],
     }));
   };
+
+
+  if (isLoading)
+  return (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <CircularProgress />
+    </Box>
+  );
+
 
   return (
     <Container maxWidth="lg" className="portfolio">
@@ -183,72 +193,3 @@ function ShowPortfolio() {
 
 export default ShowPortfolio;
 
-/*
-<Box>
-      <Stack direction='row' spacing={3} justifyContent="space-around">
-      {isLoading && <p>Loading...</p>}
-      <PostPortfolio />
-      <Paper elevation={10} sx={{paperStyle}}>
-        <List>
-      {Portfolio.map((stock) => {
-        return (
-          <ListItem key={stock.name}>
-            <ListItemText>Name: {stock.name.toUpperCase()}</ListItemText>
-            <ListItemText>Date: {stock.date}</ListItemText>
-            <ListItemText>Price: {stock.price}</ListItemText>
-            <ListItemText>Quantity: {stock.quantity}</ListItemText>
-            <Button onClick={deleteStock} variant='contained'>DELETE STOCK</Button>
-            <Button onClick={(e) => editStock(e, stock.name)} variant='contained'>
-              EDIT STOCK
-            </Button>
-            {showEditStock[stock.name] && (
-              <PatchPortfolio
-                stockName={stock.name}
-                date={stock.date}
-                price={stock.price}
-                quantity={stock.quantity}
-              />
-            )}
-          </ListItem>
-        );
-      })}
-      </List>
-      </Paper>
-    <Box>
-      <Stack direction="row" spacing={3} justifyContent="space-around">
-        {isLoading && <p>Loading...</p>}
-        <PostPortfolio setPortfolio={setPortfolio} />
-        {Portfolio.map((stock) => {
-          return (
-            <ul key={stock.name}>
-              <li>Name: {stock.name}</li>
-              <li>Date: {stock.date}</li>
-              <li>Price: {stock.price}</li>
-              <li>Quantity: {stock.quantity}</li>
-              <button onClick={deleteStock} name={stock.name}>
-                DELETE STOCK
-              </button>
-              <button onClick={(e) => editStock(e, stock.name)}>
-                EDIT STOCK
-              </button>
-              {showEditStock[stock.name] && (
-                <PatchPortfolio
-                  stockName={stock.name}
-                  date={stock.date}
-                  price={stock.price}
-                  quantity={stock.quantity}
-                  setPortfolio={setPortfolio}
-                />
-              )}
-            </ul>
-          );
-        })}
-
-        <button onClick={deletePortfolio}>DELETE PORTFOLIO</button>
-      </Stack>
-      <Button onClick={deletePortfolio} variant="outlined" color="info">DELETE PORTFOLIO</Button>
-      
-    </Box>
-
-
-*/
