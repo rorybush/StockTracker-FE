@@ -23,13 +23,20 @@ function PortfolioProfitLoss() {
   const [isLoading, setIsLoading] = useState(false);
   const [PortfolioData, setPortfolioData] = useState([]);
   const [ProfitLoss, setProfitLoss] = useState(0);
+  const [PortfolioPLError, setPortoflioPLError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    api.getPortfolioProfitLoss(uid).then((data) => {
-      setIsLoading(false);
-      setPortfolioData(data);
-    });
+    api
+      .getPortfolioProfitLoss(uid)
+      .then((data) => {
+        setIsLoading(false);
+        setPortfolioData(data);
+      })
+      .catch((err) => {
+        setPortoflioPLError(err.response.data.message);
+        setIsLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -47,6 +54,7 @@ function PortfolioProfitLoss() {
         marginBottom: "25px",
       }}
     >
+      <p>{PortfolioPLError}</p>
       <Card elevation={8}>
         <Grid align="center">
           <Typography

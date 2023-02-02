@@ -24,34 +24,43 @@ function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
 
   const auth = getAuth();
+  const uid = auth.currentUser.uid;
 
   const [Portfolio, setPortfolio] = useState([]);
   const [showEditStock, setShowEditStock] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [Uid, setUid] = useState(auth.currentUser.uid);
+  const [PortfolioError, setPortoflioError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    api.getPortfolioStocks(Uid).then((data) => {
-      setIsLoading(false);
-      const cleanStockData = data.map((stock) => {
-        const stockKeys = Object.keys(stock)[0];
-        const { date, name, price, quantity } = stock[stockKeys];
-        return {
-          name,
-          date,
-          price,
-          quantity,
-        };
+    api
+      .getPortfolioStocks(uid)
+      .then((data) => {
+        setIsLoading(false);
+        const cleanStockData = data.map((stock) => {
+          const stockKeys = Object.keys(stock)[0];
+          const { date, name, price, quantity } = stock[stockKeys];
+          return {
+            name,
+            date,
+            price,
+            quantity,
+          };
+        });
+        setPortfolio(cleanStockData);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setPortoflioError(err.response.data.message);
       });
-      setPortfolio(cleanStockData);
-    });
   }, []);
+
+  console.log(Portfolio);
 
   const deletePortfolio = (e) => {
     e.preventDefault();
     setPortfolio([]);
-    api.deletePortfolio(Uid);
+    api.deletePortfolio(uid);
   };
 
   const deleteStock = (e) => {
@@ -60,7 +69,7 @@ function ShowPortfolio() {
     setPortfolio((curPortfolio) =>
       curPortfolio.filter((stock) => stock.name !== stockName)
     );
-    api.deleteStock(Uid, stockName);
+    api.deleteStock(uid, stockName);
   };
 
   const editStock = (e, stockName) => {
@@ -80,8 +89,9 @@ function ShowPortfolio() {
 
   // if (uid === null) return <p>Please login</p>;
 
-  return { Uid } ? (
+  return (
     <Container maxWidth="lg" className="portfolio">
+      {PortfolioError && <p>No Stocks in Portfolio</p>}
       <PortfolioProfitLoss className="progress" />
       <Box
         sx={{
@@ -188,8 +198,6 @@ function ShowPortfolio() {
         </Stack>
       </Box>
     </Container>
-  ) : (
-    <p>please login</p>
   );
 }
 

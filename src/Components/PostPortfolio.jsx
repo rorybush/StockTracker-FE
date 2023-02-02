@@ -18,7 +18,6 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
 
   const postNewStock = (e) => {
     e.preventDefault();
-    console.log(e, "post function");
     setPortfolio((currStocks) => {
       return [NewStock, ...currStocks];
     });
