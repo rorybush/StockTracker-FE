@@ -2,7 +2,6 @@ import { Container, Grid } from "@mui/material";
 import React from "react";
 import StocksList from "./StocksList";
 import StockNews from "./StockNews";
-import Chat from "./Chat";
 
 const Home = () => {
   return (
@@ -13,7 +12,6 @@ const Home = () => {
             <StocksList />
           </Grid>
           <Grid item xs={12} md={8}>
-            <Chat />
             <StockNews />
           </Grid>
         </Grid>
