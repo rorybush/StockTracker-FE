@@ -50,7 +50,6 @@ const StocksList = () => {
     api
       .getStockListNasdaq()
       .then((data) => {
-        console.log(data);
         const stocksFiltered = data.filter((stock) => {
           if (tickerArr.includes(stock.symbol)) {
             return stock;

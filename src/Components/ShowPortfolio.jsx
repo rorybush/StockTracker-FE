@@ -24,15 +24,15 @@ function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
 
   const auth = getAuth();
-  const uid = auth.currentUser.uid;
 
   const [Portfolio, setPortfolio] = useState([]);
   const [showEditStock, setShowEditStock] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [Uid, setUid] = useState(auth.currentUser.uid);
 
   useEffect(() => {
     setIsLoading(true);
-    api.getPortfolioStocks(uid).then((data) => {
+    api.getPortfolioStocks(Uid).then((data) => {
       setIsLoading(false);
       const cleanStockData = data.map((stock) => {
         const stockKeys = Object.keys(stock)[0];
@@ -51,7 +51,7 @@ function ShowPortfolio() {
   const deletePortfolio = (e) => {
     e.preventDefault();
     setPortfolio([]);
-    api.deletePortfolio(uid);
+    api.deletePortfolio(Uid);
   };
 
   const deleteStock = (e) => {
@@ -60,7 +60,7 @@ function ShowPortfolio() {
     setPortfolio((curPortfolio) =>
       curPortfolio.filter((stock) => stock.name !== stockName)
     );
-    api.deleteStock(uid, stockName);
+    api.deleteStock(Uid, stockName);
   };
 
   const editStock = (e, stockName) => {
@@ -78,7 +78,9 @@ function ShowPortfolio() {
       </Box>
     );
 
-  return (
+  // if (uid === null) return <p>Please login</p>;
+
+  return { Uid } ? (
     <Container maxWidth="lg" className="portfolio">
       <PortfolioProfitLoss className="progress" />
       <Box
@@ -186,6 +188,8 @@ function ShowPortfolio() {
         </Stack>
       </Box>
     </Container>
+  ) : (
+    <p>please login</p>
   );
 }
 

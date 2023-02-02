@@ -67,7 +67,6 @@ const Signup = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         navigate("/");
-        console.log(user, "SIGN UP USER");
         update(child(ref(db), "users-db"), {
           "user-id": user.uid,
           username: username,
