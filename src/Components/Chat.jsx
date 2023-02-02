@@ -24,7 +24,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (auth.currentUser) setUsername(auth.currentUser.email);
-    const socket = io("localhost:8080");
+    const socket = io("https://chat-server-7p03.onrender.com");
     setSocket(socket);
     socket.on("RECEIVE_MESSAGE", (data) => {
       addMessage(data);
