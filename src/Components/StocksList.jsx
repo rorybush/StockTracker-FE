@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import * as api from "../utils/api";
 import { Link } from "react-router-dom";
 import { Box, CircularProgress, Card, useTheme } from "@mui/material";
-import { useMediaQuery } from "@material-ui/core";
 import "./stocksList.css";
+
+import moment from "moment-timezone";
 
 const StocksList = () => {
   const [stocksList, setStocksList] = useState([]);
@@ -11,7 +12,10 @@ const StocksList = () => {
   const [previous, setPrevious] = useState({});
   const [IsStockListLoading, setIsStockListLoading] = useState(false);
   const theme = useTheme();
-  const MQmr = useMediaQuery(theme.breakpoints.up(""));
+
+  const marketsOpen = moment.tz("09:30", "America/New_York").format();
+  const marketsClose = moment.tz("16:00", "America/New_York").format();
+  const newYorkTime = moment.tz("America/New_York").format();
 
   const fixPrice = (price) => {
     if (price) {
@@ -21,8 +25,14 @@ const StocksList = () => {
     }
   };
 
-  const percentageChange = (n1, n2) => {
-    return (n1 - n2) / ((n1 + n2) / 2);
+  const getPercentageChange = (n1, n2) => {
+    const percentageChange = (num1, num2) => {
+      return (num1 - num2) / ((num1 + num2) / 2);
+    };
+
+    if (newYorkTime >= marketsOpen && newYorkTime <= marketsClose) {
+      return `${percentageChange(n1, n2).toFixed(4)}%`;
+    }
   };
 
   const tickerArr = [
@@ -50,6 +60,7 @@ const StocksList = () => {
     api
       .getStockListNasdaq()
       .then((data) => {
+        console.log(data);
         const stocksFiltered = data.filter((stock) => {
           if (tickerArr.includes(stock.symbol)) {
             return stock;
@@ -130,10 +141,10 @@ const StocksList = () => {
                   }
                   style={{ margin: "0px", fontSize: "1.3em" }}
                 >
-                  {percentageChange(
+                  {getPercentageChange(
                     prices[stock.symbol],
                     previous[stock.symbol]
-                  ).toFixed(4)}{" "}
+                  )}{" "}
                   %
                 </p>
               </div>

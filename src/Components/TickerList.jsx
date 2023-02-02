@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useEffect, useState } from "react";
 import { getTickerPrice } from "../utils/api";
 
+import moment from "moment-timezone";
+
 const useStyles = makeStyles((theme) => ({
   tickerContainer: {
     width: "100%",
@@ -36,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const TickerList = () => {
   const classes = useStyles();
 
+  const marketsOpen = moment.tz("09:30", "America/New_York").format();
+  const marketsClose = moment.tz("16:00", "America/New_York").format();
+  const newYorkTime = moment.tz("America/New_York").format();
+
   const fixPrice = (price) => {
     if (price) {
       return price.toFixed(2);
@@ -44,8 +50,14 @@ const TickerList = () => {
     }
   };
 
-  const percentageChange = (n1, n2) => {
-    return (n1 - n2) / ((n1 + n2) / 2);
+  const getPercentageChange = (n1, n2) => {
+    const percentageChange = (num1, num2) => {
+      return (num1 - num2) / ((num1 + num2) / 2);
+    };
+
+    if (newYorkTime >= marketsOpen && newYorkTime <= marketsClose) {
+      return `${percentageChange(n1, n2).toFixed(4)}%`;
+    }
   };
 
   const tickerArray = [
@@ -146,7 +158,7 @@ const TickerList = () => {
               }
               style={{ margin: "0px", fontSize: "1.3em" }}
             >
-              {percentageChange(prices[ticker], previous[ticker]).toFixed(4)} %
+              {getPercentageChange(prices[ticker], previous[ticker])}
             </p>
           </div>
         ))}

@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "firebase": "^9.16.0",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.40",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,9 +49,9 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ],
     "development": [
       "last 1 chrome version",
