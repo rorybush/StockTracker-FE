@@ -100,15 +100,17 @@ const NavBar = () => {
           >
             HOME
           </Button>
-          <Button
-            variant="text"
-            color="inherit"
-            size="large"
-            component={Link}
-            to={"/portfolio"}
-          >
-            PORTFOLIO
-          </Button>
+          {authUser && (
+            <Button
+              variant="text"
+              color="inherit"
+              size="large"
+              component={Link}
+              to={"/portfolio"}
+            >
+              PORTFOLIO
+            </Button>
+          )}
           <Button
             variant="text"
             color="inherit"
@@ -164,12 +166,16 @@ const NavBar = () => {
             </Link>
           </MenuItem>
         )}
-        <MenuItem>
-          {" "}
-          <Link to="/portfolio" color="secondary" underline="none">
-            Portfolio
-          </Link>
-        </MenuItem>
+
+        {authUser && (
+          <MenuItem>
+            {" "}
+            <Link to="/portfolio" color="secondary" underline="none">
+              Portfolio
+            </Link>
+          </MenuItem>
+        )}
+
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </AppBar>
