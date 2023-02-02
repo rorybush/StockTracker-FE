@@ -2,9 +2,7 @@ import {
   AppBar,
   Toolbar,
   styled,
-  alpha,
   Box,
-  InputBase,
   Avatar,
   Button,
   Menu,
@@ -38,7 +36,7 @@ const UserBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Navv = () => {
+const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [authUser, setAuthUser] = useState(null);
 
@@ -178,4 +176,4 @@ const Navv = () => {
   );
 };
 
-export default Navv;
+export default NavBar;
