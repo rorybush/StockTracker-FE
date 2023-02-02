@@ -4,8 +4,7 @@ import { getAuth } from "firebase/auth";
 
 function PatchPortfolio({ stockName, date, price, quantity, setPortfolio }) {
   const auth = getAuth();
-  const uid = "498jsaodfjadslfjakldfkjal";
-  //   auth.currentUser.uid;
+  const uid = auth.currentUser.uid;
 
   const [UserEdit, setUserEdit] = useState({
     stockName: stockName,

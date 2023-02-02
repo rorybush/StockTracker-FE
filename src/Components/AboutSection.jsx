@@ -58,17 +58,6 @@ const getNumberUnit = function (num, round = 2) {
 };
 
 const AboutSection = ({ symbol, stock, isAboutLoading }) => {
-  // const [stock, setStock] = useState({});
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   api.getSingleStock(symbol).then((stockData) => {
-  //     setStock(stockData);
-  //     setIsLoading(false);
-  //   });
-  // }, []);
-
   if (isAboutLoading)
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -138,8 +127,6 @@ const AboutSection = ({ symbol, stock, isAboutLoading }) => {
         </List>
       </Box>
 
-      {/* ABOUTSECTION */}
-
       <Box
         sx={{
           bgcolor: "background.paper",
@@ -189,4 +176,3 @@ const AboutSection = ({ symbol, stock, isAboutLoading }) => {
 };
 
 export default AboutSection;
-

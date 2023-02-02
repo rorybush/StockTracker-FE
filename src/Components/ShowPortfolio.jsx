@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import * as api from "../utils/api";
 import PostPortfolio from "./PostPortfolio";
 import PatchPortfolio from "./PatchPortfolio";
@@ -16,16 +16,16 @@ import {
   Container,
   Grid,
   Divider,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import PortfolioProfitLoss from "./PortfolioProfitLoss";
 
 function ShowPortfolio() {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
 
-  // const auth = getAuth();
-  const uid = "498jsaodfjadslfjakldfkjal";
-  //   auth.currentUser.uid;
+  const auth = getAuth();
+  const uid = auth.currentUser.uid;
+
   const [Portfolio, setPortfolio] = useState([]);
   const [showEditStock, setShowEditStock] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -71,14 +71,12 @@ function ShowPortfolio() {
     }));
   };
 
-
   if (isLoading)
-  return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <CircularProgress />
-    </Box>
-  );
-
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
 
   return (
     <Container maxWidth="lg" className="portfolio">
@@ -192,4 +190,3 @@ function ShowPortfolio() {
 }
 
 export default ShowPortfolio;
-

@@ -17,12 +17,9 @@ const useStyles = makeStyles(() => ({
 function PortfolioProfitLoss() {
   const classes = useStyles();
 
-  const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
-  const textStyle = { margin: "10px auto 0px" };
-
   const auth = getAuth();
-  const uid = "498jsaodfjadslfjakldfkjal";
-  //   auth.currentUser.uid;
+  const uid = auth.currentUser.uid;
+
   const [isLoading, setIsLoading] = useState(false);
   const [PortfolioData, setPortfolioData] = useState([]);
   const [ProfitLoss, setProfitLoss] = useState(0);
@@ -50,7 +47,6 @@ function PortfolioProfitLoss() {
         marginBottom: "25px",
       }}
     >
-      {/* <Paper elevation={10} sx={{paperStyle}}> */}
       <Card elevation={8}>
         <Grid align="center">
           <Typography
@@ -80,7 +76,6 @@ function PortfolioProfitLoss() {
           </List>
         </Grid>
       </Card>
-      {/* </Paper> */}
     </Grid>
   );
 }

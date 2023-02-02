@@ -5,8 +5,6 @@ import {
   Divider,
   Grid,
   IconButton,
-  List,
-  ListItem,
   Paper,
   TextField,
   Typography,
@@ -46,7 +44,8 @@ const ForgotPassword = () => {
           <Typography variant="h5">Find your account</Typography>
           <Divider></Divider>
           <Typography variant="caption" color="textSecondary">
-            Enter the email associated with your account to change your password.
+            Enter the email associated with your account to change your
+            password.
           </Typography>
           <form>
             <TextField

@@ -1,27 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import * as api from "../utils/api";
-// import { getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import "./postPortfolio.css";
 import { Grid, Paper, TextField, Button, Typography } from "@mui/material";
 
-
-
-function PostPortfolio({ Portfolio, setPortfolio }) {  
+function PostPortfolio({ Portfolio, setPortfolio }) {
   const paperStyle = { padding: "30px 20px", width: 300, margin: "60px auto" };
   const textStyle = { margin: "10px auto 0px" };
-  // const auth = getAuth();
-  const uid = "498jsaodfjadslfjakldfkjal";
+  const auth = getAuth();
+  const uid = auth.currentUser.uid;
   const [NewStock, setNewStock] = useState({
     name: "",
     date: "",
     quantity: "",
     price: "",
   });
-  //   auth.currentUser.uid;
 
   const postNewStock = (e) => {
     e.preventDefault();
-    console.log(e, "post function")
+    console.log(e, "post function");
     setPortfolio((currStocks) => {
       return [NewStock, ...currStocks];
     });
@@ -38,92 +35,90 @@ function PostPortfolio({ Portfolio, setPortfolio }) {
   return (
     <Grid>
       <Paper elevation={10} sx={paperStyle}>
-        <Grid align='center'>
-          <Typography variant='subtitle1' sx={{mb:2}}>
+        <Grid align="center">
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
             Add stocks to your portfolio.
           </Typography>
-      {uid && (
-        <form onSubmit={postNewStock}>
-          
-          <TextField
-            type="text"
-            name="stockName"
-            label="Stock Name"
-            placeholder="Enter stock name"
-            fullWidth
-            required
-            sx={textStyle}
-            onChange={(e) => {
-              setNewStock({
-                ...NewStock,
-                name: e.target.value.toUpperCase(),
-              });
-            }}
-          />
+          {uid && (
+            <form onSubmit={postNewStock}>
+              <TextField
+                type="text"
+                name="stockName"
+                label="Stock Name"
+                placeholder="Enter stock name"
+                fullWidth
+                required
+                sx={textStyle}
+                onChange={(e) => {
+                  setNewStock({
+                    ...NewStock,
+                    name: e.target.value.toUpperCase(),
+                  });
+                }}
+              />
 
-          
-          <TextField
-            type="number"
-            name="quantity"
-            label="Quantity"
-            required
-            fullWidth
-            placeholder="Enter quantity"
-            sx={textStyle}
-            onChange={(e) => {
-              setNewStock({
-                ...NewStock,
-                quantity: e.target.value,
-              });
-            }}
-          />
+              <TextField
+                type="number"
+                name="quantity"
+                label="Quantity"
+                required
+                fullWidth
+                placeholder="Enter quantity"
+                sx={textStyle}
+                onChange={(e) => {
+                  setNewStock({
+                    ...NewStock,
+                    quantity: e.target.value,
+                  });
+                }}
+              />
 
-          
-          <TextField
-            type="number"
-            step="0.01"
-            name="price"
-            label="Purchase Price"
-            placeholder="Enter purchase price"
-            fullWidth
-            required
-            sx={textStyle}
-            onChange={(e) => {
-              setNewStock({
-                ...NewStock,
-                price: e.target.value,
-              });
-            }}
-          />
+              <TextField
+                type="number"
+                step="0.01"
+                name="price"
+                label="Purchase Price"
+                placeholder="Enter purchase price"
+                fullWidth
+                required
+                sx={textStyle}
+                onChange={(e) => {
+                  setNewStock({
+                    ...NewStock,
+                    price: e.target.value,
+                  });
+                }}
+              />
 
-          
-          <TextField
-            type="date"
-            name="date"
-            required
-            fullWidth
-            sx={textStyle}
-            onChange={(e) => {
-              setNewStock({
-                ...NewStock,
-                date: e.target.value,
-              });
-            }}
-          />
+              <TextField
+                type="date"
+                name="date"
+                required
+                fullWidth
+                sx={textStyle}
+                onChange={(e) => {
+                  setNewStock({
+                    ...NewStock,
+                    date: e.target.value,
+                  });
+                }}
+              />
 
-          <Button 
-          type="submit"
-          sx={textStyle}
-          fullWidth
-          variant="contained"
-           > Save</Button>
-        </form>
-      )}
-      </Grid>
+              <Button
+                type="submit"
+                sx={textStyle}
+                fullWidth
+                variant="contained"
+              >
+                {" "}
+                Save
+              </Button>
+            </form>
+          )}
+        </Grid>
       </Paper>
     </Grid>
   );
 }
 
 export default PostPortfolio;
-

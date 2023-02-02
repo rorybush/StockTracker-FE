@@ -104,7 +104,6 @@ const StockNews = () => {
                         component="img"
                         image={news.thumbnail.resolutions[0].url}
                         sx={{
-                          // paddingTop: "56.25%",
                           height: 60,
                           width: 60,
                           borderRadius: "10%",
@@ -112,12 +111,10 @@ const StockNews = () => {
                         }}
                       />
                     ) : (
-                      // image={`https://source.unsplash.com/random?${article.title}`}
                       <CardMedia
                         component="img"
                         image={`https://source.unsplash.com/random?${news.publisher} `}
                         sx={{
-                          // paddingTop: "56.25%",
                           height: 60,
                           width: 60,
                           borderRadius: "10%",
@@ -137,4 +134,3 @@ const StockNews = () => {
 };
 
 export default StockNews;
-

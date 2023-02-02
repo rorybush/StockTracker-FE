@@ -20,57 +20,6 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import SearchBarSuggestions from "./SearchBarSuggestions";
 
-// const Search = styled("div")(({theme}) => ({
-//     backgroundColor: "white",
-//     padding:"0 10px",
-//     borderRadius: theme.shape.borderRadius,
-//     width: "40%"
-// }))
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "70%",
-  },
-  [theme.breakpoints.up("md")]: {
-    marginLeft: theme.spacing(3),
-    width: "50%",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
 const Icons = styled(Box)(({ theme }) => ({
   display: "none",
   gap: 15,
@@ -119,9 +68,6 @@ const Navv = () => {
   return (
     <AppBar position="sticky" color="info">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        {/* <Typography component={Link} to={'/'} variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
-          PyNance
-        </Typography> */}
         <Button
           component={Link}
           to={"/"}
@@ -144,15 +90,7 @@ const Navv = () => {
             />
           </Link>
         </IconButton>
-        {/* <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search> */}
+
         <SearchBarSuggestions />
         <Icons>
           <Button

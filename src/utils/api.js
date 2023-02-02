@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://sea-turtle-app-xc9w8.ondigitalocean.app/",
+  baseURL: "http://127.0.0.1:5000/",
 });
 
 export const getPortfolioStocks = (uid) => {

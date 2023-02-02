@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Link, useNavigate} from 'react-router-dom'
-import Home from './Home'
+import { Link, useNavigate } from "react-router-dom";
+import Home from "./Home";
 import {
   Avatar,
   Button,
@@ -10,16 +10,17 @@ import {
   TextField,
   Typography,
   InputAdornment,
-
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth, db } from "../utils/firebase";
 import { ref, child, update } from "firebase/database";
 import PasswordStrengthIndicator from "./PasswordStrengthIndicator";
 
-// Password validation regx
 const isNumberRegx = /\d/;
 const specialCharacterRegx = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
@@ -32,7 +33,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Password Validation
   const [passwordValidity, setPasswordValidity] = useState({
     minChar: null,
     number: null,
@@ -40,7 +40,6 @@ const Signup = () => {
   });
   const [passwordFocused, setPasswordFocused] = useState(false);
 
-  // Password Validation Function
   const onChangePassword = (password) => {
     setPassword(password);
 
@@ -51,17 +50,15 @@ const Signup = () => {
     });
   };
 
-  // Password Visibility
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
   const toggleConfirmPassword = () => {
-    setConfirmPasswordShown(!confirmPasswordShown)
-  }
+    setConfirmPasswordShown(!confirmPasswordShown);
+  };
 
-  // Form sumbit
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +66,7 @@ const Signup = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate('/')
+        navigate("/");
         console.log(user, "SIGN UP USER");
         update(child(ref(db), "users-db"), {
           "user-id": user.uid,
@@ -79,9 +76,7 @@ const Signup = () => {
         Home();
       })
       .catch((err) => {
-        // const errorCode = err.code;
-        // const errorMessage = err.message;
-        alert('Username/Email already exists!')
+        alert("Username/Email already exists!");
       });
 
     setUsername("");
@@ -90,23 +85,22 @@ const Signup = () => {
     setConfirmPassword("");
   };
 
-
-  const [authUser, setAuthUser] = useState(null)
+  const [authUser, setAuthUser] = useState(null);
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setAuthUser(user)
-        } else {
-            setAuthUser(null)
-        }
-    })
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
     return () => {
-        listen();
-    }
-}, [])
+      listen();
+    };
+  }, []);
 
   return (
-    <Grid >
+    <Grid>
       <Paper elevation={20} sx={paperStyle}>
         <Grid align="center">
           <Avatar></Avatar>
@@ -155,9 +149,17 @@ const Signup = () => {
               required
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton aria-label='toggle password' edge='end' onClick={togglePassword}>
-                    {passwordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password"
+                      edge="end"
+                      onClick={togglePassword}
+                    >
+                      {passwordShown ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -178,18 +180,23 @@ const Signup = () => {
               color={password === confirmPassword ? "success" : "error"}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton aria-label='toggle password' edge='end' onClick={toggleConfirmPassword}>
-                    {confirmPasswordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password"
+                      edge="end"
+                      onClick={toggleConfirmPassword}
+                    >
+                      {confirmPasswordShown ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
-              {/* <IconButton onClick={togglePassword} edge="end">
-                {passwordShown ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </IconButton>
-            </TextField> */}
+
             {password === confirmPassword &&
             passwordValidity.minChar === true &&
             passwordValidity.number === true &&
@@ -216,7 +223,17 @@ const Signup = () => {
               </Button>
             )}
           </form>
-          {authUser ? <Typography></Typography> : <Typography sx={textStyle}> Have an account already? <Link to='/login' underline='none' color='primary'>Log in</Link></Typography>}
+          {authUser ? (
+            <Typography></Typography>
+          ) : (
+            <Typography sx={textStyle}>
+              {" "}
+              Have an account already?{" "}
+              <Link to="/login" underline="none" color="primary">
+                Log in
+              </Link>
+            </Typography>
+          )}
         </Grid>
       </Paper>
     </Grid>
