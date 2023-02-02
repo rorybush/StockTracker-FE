@@ -8,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Alert } from "@mui/material";
+import Disclaimer from "./Disclaimer";
 
 function StockAI({ stock }) {
   const { symbol } = useParams();
@@ -26,6 +27,7 @@ function StockAI({ stock }) {
 
   return (
     <div>
+        {/* <Disclaimer/> */}
       <Alert severity="info">
         Pynance.AI stock prediction is not financial advice.
       </Alert>

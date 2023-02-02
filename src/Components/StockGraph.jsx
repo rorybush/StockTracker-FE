@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@6/+esm";
 import { useParams } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Button } from "@mui/material";
 
 function StockGraph() {
   const [Data, setData] = useState([]);
@@ -95,15 +95,15 @@ function StockGraph() {
 
   return (
     <div>
-      <button onClick={onMaxClick}>Max</button>
-      <button onClick={onYearClick}>1 Year</button>
-      <button onClick={onMonthClick}>1 Month</button>
-      <button onClick={on5DaysClick}>5 Days</button>
       {IsLoading && (
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CircularProgress />
         </Box>
       )}
+      <Button variant='outlined' sx={{mr:1, ml:3}} onClick={on5DaysClick}>5D</Button>
+      <Button variant='outlined' sx={{mr:1}} onClick={onMonthClick}>1M</Button>
+      <Button variant='outlined' sx={{mr:1}} onClick={onYearClick}>1Y</Button>
+      <Button variant='outlined' sx={{mr:1}} onClick={onMaxClick}>Max</Button>
       <svg className="svg-canvas" width="500px" height="400px" />
     </div>
   );

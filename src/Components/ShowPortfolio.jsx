@@ -55,8 +55,6 @@ function ShowPortfolio() {
       });
   }, []);
 
-  console.log(Portfolio);
-
   const deletePortfolio = (e) => {
     e.preventDefault();
     setPortfolio([]);
@@ -100,13 +98,13 @@ function ShowPortfolio() {
           justifyContent: "center",
         }}
       >
+        <Stack direction='row'>
         <Popup
           trigger={
             <Button
               variant="contained"
               className="add-investment"
-              size="large"
-              style={{ marginTop: "20px" }}
+              style={{ height:45, width: 450, margin:"20px auto" }}
             >
               <AddCircleIcon style={{ marginRight: "8px" }} /> Add Investment
             </Button>
@@ -118,12 +116,12 @@ function ShowPortfolio() {
         <Button
           onClick={deletePortfolio}
           variant="outlined"
-          size="large"
           color="error"
-          sx={{ width: "100%", m: "20px auto 20px" }}
+          sx={{ height:45, width: 450, margin:"20px auto" }}
         >
           DELETE PORTFOLIO
         </Button>
+        </Stack>
         <Stack direction="row" spacing={3} justifyContent="space-around">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={6}></Grid>

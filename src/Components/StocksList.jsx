@@ -145,7 +145,6 @@ const StocksList = () => {
                     prices[stock.symbol],
                     previous[stock.symbol]
                   )}{" "}
-                  %
                 </p>
               </div>
             </Card>
