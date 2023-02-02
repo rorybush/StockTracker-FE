@@ -59,13 +59,7 @@ const Chat = () => {
                   onChange={(event) => setMessage(event.target.value)}
                 />
                 <br />
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="form-control"
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                />
+
                 <button
                   onClick={sendMessage}
                   className="btn btn-primary form-control"
