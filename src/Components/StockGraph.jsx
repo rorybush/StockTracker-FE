@@ -7,7 +7,7 @@ import { Box, CircularProgress } from "@mui/material";
 function StockGraph() {
   const [Data, setData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
-  const [TimeScale, setTimeScale] = useState("max");
+  const [TimeScale, setTimeScale] = useState("1y");
 
   const { symbol } = useParams();
 
