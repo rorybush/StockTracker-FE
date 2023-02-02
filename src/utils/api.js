@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const fromApi = axios.create({
-  baseURL: "https://backend-stock.onrender.com",
+  baseURL: "https://sea-turtle-app-xc9w8.ondigitalocean.app/",
 
+  // "https://backend-stock.onrender.com"
   // "https://sea-turtle-app-xc9w8.ondigitalocean.app/"
 });
 
