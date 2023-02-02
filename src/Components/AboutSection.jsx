@@ -177,7 +177,7 @@ const AboutSection = ({ symbol, stock, isAboutLoading }) => {
           <ListItem divider disableGutters>
             <ListItemText>Website</ListItemText>
             <ListItemText sx={{ textAlign: "right" }}>
-              <a href={stock.website} target="_blank">
+              <a href={stock.website} target="_blank" rel="noreferrer">
                 {stock.website}
               </a>
             </ListItemText>
@@ -190,29 +190,3 @@ const AboutSection = ({ symbol, stock, isAboutLoading }) => {
 
 export default AboutSection;
 
-/*
-  <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'><p>Company name</p> <p>{stock.companyName}</p></Typography>
-        </CardContent>
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'>Sector{stock.sector}</Typography>
-        </CardContent>
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'><p>Website</p> <p>{stock.website}</p></Typography>
-        </CardContent>
-        
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'><p>Last price</p> <p>{stock.lastPrice}</p></Typography>
-        </CardContent>
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'>Market cap {stock.marketCap}</Typography>
-        </CardContent>
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'>Year range $ {stock.yearLow} - {stock.yearHigh}</Typography>
-        </CardContent>
-        <CardContent align="center" sx={{borderBottom:"1px solid grey"}}>
-            <Typography color='textSecondary' variant='subtitle2'>Day range {stock.dayLow} - {stock.dayHigh}</Typography>
-        </CardContent>
-
-
-*/

@@ -19,6 +19,7 @@ const SingleStock = () => {
       setStock(stockData);
       setIsAboutLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -46,23 +47,3 @@ const SingleStock = () => {
 
 export default SingleStock;
 
-{
-  /*     <Container maxWidth="lg" sx={{ padding: "35px 20px" }}>
-      <Grid container spacing={2} direction="column">
-        <Grid item xs={12} container spacing={2}>
-          <Grid item xs={8}>
-            <StockGraph />
-          </Grid>
-          <Grid item xs={4}>
-          <AboutSection symbol={symbol} />    
-          </Grid>
-          <Grid item xs={6}>
-          <SingleStockNews symbol={symbol} />
-          </Grid>
-          <Grid item xs={6}>
-            <StockCalendar ticker={symbol} />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Container> */
-}
