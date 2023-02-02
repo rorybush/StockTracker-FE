@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as api from "../utils/api";
 import { getAuth } from "firebase/auth";
-import { Card, Grid, List, ListItem, Typography } from "@mui/material";
+import { Card, Grid, List, ListItem, Typography, CircularProgress } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
@@ -37,6 +37,7 @@ function PortfolioProfitLoss() {
         setPortoflioPLError(err.response.data.message);
         setIsLoading(false);
       });
+      // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -44,6 +45,14 @@ function PortfolioProfitLoss() {
       PortfolioData.reduce((acc, stock) => acc + stock.ProfitLoss, 0)
     );
   }, [PortfolioData]);
+
+
+  if (isLoading)
+  return (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <CircularProgress />
+    </Box>
+  );
 
   return (
     <Grid

@@ -34,6 +34,7 @@ const SingleStockNews = ({ symbol }) => {
       .catch((err) => {
         setStockNewsError(err);
       });
+      // eslint-disable-next-line
   }, []);
 
   if (isLoading)

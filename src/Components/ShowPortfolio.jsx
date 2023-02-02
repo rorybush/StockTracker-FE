@@ -53,6 +53,7 @@ function ShowPortfolio() {
         setIsLoading(false);
         setPortoflioError(err.response.data.message);
       });
+      // eslint-disable-next-line
   }, []);
 
   const deletePortfolio = (e) => {

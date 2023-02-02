@@ -11,7 +11,7 @@ const StocksList = () => {
   const [prices, setPrices] = useState({});
   const [previous, setPrevious] = useState({});
   const [IsStockListLoading, setIsStockListLoading] = useState(false);
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const marketsOpen = moment.tz("09:30", "America/New_York").format();
   const marketsClose = moment.tz("16:00", "America/New_York").format();
@@ -60,7 +60,6 @@ const StocksList = () => {
     api
       .getStockListNasdaq()
       .then((data) => {
-        console.log(data);
         const stocksFiltered = data.filter((stock) => {
           if (tickerArr.includes(stock.symbol)) {
             return stock;
@@ -78,6 +77,7 @@ const StocksList = () => {
       });
     }, 10000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line
   }, []);
 
   if (IsStockListLoading)
